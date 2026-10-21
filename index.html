@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Hammad — Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of Muhammad Hammad, Full-Stack Developer and Computer Science student at Air University Multan building SaaS platforms, AI assistants, trading automation, and desktop applications." />
+
+  <!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Clean UI), JetBrains Mono (Subtle Tags) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP & ScrollTrigger from cdnjs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6EE',
+            paper: '#F3ECE0',
+            card: '#FFFDF9',
+            ink: '#1E1A17',
+            charcoal: '#4A423B',
+            muted: '#786E65',
+            terracotta: '#E4572E',
+            terracottaDark: '#C8431C',
+            mustard: '#F2B134',
+            sage: '#7A9E7E',
+            sageDark: '#5C7D60',
+            peach: '#F7D6C4',
+            borderWarm: '#E5DEC9'
+          },
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       STRICT PALETTE ENFORCEMENT (NO BLUE, PURPLE, VIOLET, INDIGO, TEAL, CYAN)
+       ========================================================================== */
+    :root {
+      color-scheme: light;
+      --bg-cream: #FAF6EE;
+      --bg-paper: #F3ECE0;
+      --text-ink: #1E1A17;
+      --text-muted: #5C534B;
+      --accent-terracotta: #E4572E;
+      --accent-mustard: #F2B134;
+      --accent-sage: #7A9E7E;
+      --accent-peach: #F7D6C4;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(228, 87, 46, 0.15);
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-cream);
+      color: var(--text-ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: clip; /* 'hidden' on html+body breaks position: sticky */
+      scroll-behavior: auto;
+    }
+
+    /* Override browser default blue links & focus rings */
+    a, a:link, a:visited, a:hover, a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    *:focus, *:focus-visible {
+      outline: 2px solid var(--accent-terracotta) !important;
+      outline-offset: 3px !important;
+      box-shadow: 0 0 0 4px rgba(242, 177, 52, 0.25) !important;
+    }
+
+    ::selection {
+      background-color: var(--accent-mustard);
+      color: var(--text-ink);
+    }
+
+    /* Custom Warm Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3ECE0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D5CBB8;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #E4572E;
+    }
+
+    /* Subtle Paper Grain Overlay */
+    .paper-grain {
+      background-image: radial-gradient(rgba(30, 26, 23, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Paper-craft tactile card styling */
+    .paper-card {
+      background: rgba(255, 253, 249, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid #E5DEC9;
+      box-shadow:
+        0 12px 32px -12px rgba(30, 26, 23, 0.09),
+        0 3px 0 0 #E5DEC9;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .paper-subcard {
+      background: rgba(243, 236, 224, 0.78);
+      border: 1px solid #E5DEC9;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .paper-subcard:hover {
+      border-color: #E4572E;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -10px rgba(228, 87, 46, 0.14);
+    }
+
+    /* Warm Tactile Buttons */
+    .btn-terracotta {
+      background-color: #E4572E;
+      color: #FAF6EE;
+      border: 1.5px solid #C8431C;
+      box-shadow: 0 3px 0 0 #9E3212;
+      transition: all 0.18s ease;
+    }
+    .btn-terracotta:hover {
+      background-color: #D24920;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 0 0 #9E3212;
+    }
+    .btn-terracotta:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 0 #9E3212;
+    }
+
+    .btn-cream {
+      background-color: #FAF6EE;
+      color: #1E1A17;
+      border: 1.5px solid #D5CBB8;
+      box-shadow: 0 3px 0 0 #D5CBB8;
+      transition: all 0.18s ease;
+    }
+    .btn-cream:hover {
+      border-color: #E4572E;
+      background-color: #FFFDF9;
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 0 0 #E4572E;
+    }
+
+    /* Navigation Active State */
+    .nav-link {
+      color: #4A423B;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #1E1A17;
+      background-color: rgba(243, 236, 224, 0.8);
+    }
+    .nav-link.active {
+      background-color: #E4572E;
+      color: #FAF6EE;
+      box-shadow: 0 2px 0 0 #9E3212;
+    }
+
+    /* Scrollytelling Stage & Section Layering */
+    #scrolly-stage {
+      position: relative;
+      width: 100%;
+      height: 600vh; /* 100vh viewport + 500vh scroll distance */
+    }
+
+    #pinned-viewport {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #scene-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+
+    .scroll-section {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4.5rem 1rem 1.25rem;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .scroll-section .interactive-panel {
+      pointer-events: auto;
+      width: 100%;
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+    .animate-scroll-cue {
+      animation: gentleBounce 2s infinite ease-in-out;
+    }
+
+    /* Reduced Motion Accessibility Mode */
+    @media (prefers-reduced-motion: reduce) {
+      #scrolly-stage {
+        height: auto !important;
+      }
+      #pinned-viewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #scene-canvas {
+        position: fixed !important;
+        opacity: 0.22 !important;
+      }
+      .scroll-section {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        min-height: auto;
+        padding: 5.5rem 1.25rem 2.5rem;
+      }
+      .animate-scroll-cue {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-cream text-ink antialiased selection:bg-mustard selection:text-ink">
+
+  <!-- ==========================================================================
+       1. MINIMAL BRANDED PRELOADER
+       ========================================================================== -->
+  <div id="loader-overlay" class="fixed inset-0 z-50 bg-cream paper-grain flex flex-col items-center justify-center p-6 transition-opacity duration-500">
+    <div class="max-w-xs w-full text-center">
+      <div class="w-12 h-12 mx-auto mb-3.5 rounded-2xl bg-terracotta text-cream font-display font-bold text-lg flex items-center justify-center shadow-sm border border-terracottaDark">
+        MH
+      </div>
+      <h1 class="font-display text-xl font-bold text-ink tracking-tight mb-1" id="loader-name">Muhammad Hammad</h1>
+      <p class="text-xs text-muted mb-4">Loading portfolio...</p>
+      <div class="w-full h-1.5 bg-paper rounded-full overflow-hidden border border-borderWarm">
+        <div id="loader-bar" class="h-full bg-terracotta rounded-full transition-all duration-150" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. HEADER & SCROLL PROGRESS BAR
+       ========================================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-3 sm:px-6 pt-2.5 pointer-events-none">
+    <div class="max-w-6xl mx-auto paper-card rounded-2xl px-3 sm:px-5 py-2 flex items-center justify-between gap-2 pointer-events-auto">
+      <!-- Brand / Identity -->
+      <a href="#top" data-scroll-to="0" class="flex items-center gap-2.5 group shrink-0">
+        <span class="w-8 h-8 rounded-xl bg-terracotta text-cream font-display font-bold text-sm flex items-center justify-center shadow-sm group-hover:bg-terracottaDark transition-colors">
+          MH
+        </span>
+        <div class="leading-tight">
+          <span class="block font-display font-bold text-xs sm:text-sm text-ink" id="nav-name">Muhammad Hammad</span>
+          <span class="hidden sm:block font-mono text-[11px] text-muted" id="nav-location">Multan, Pakistan</span>
+        </div>
+      </a>
+
+      <!-- Plain Navigation Links -->
+      <nav aria-label="Primary Navigation" class="flex items-center gap-1 sm:gap-1.5">
+        <button type="button" data-scroll-to="0" data-nav="home" class="nav-link active px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+          Home
+        </button>
+        <button type="button" data-scroll-to="0.25" data-nav="about" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+          About
+        </button>
+        <button type="button" data-scroll-to="0.45" data-nav="skills" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+          Skills
+        </button>
+        <button type="button" data-scroll-to="0.65" data-nav="projects" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+          Projects
+        </button>
+        <button type="button" data-scroll-to="0.92" data-nav="contact" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+          Contact
+        </button>
+      </nav>
+    </div>
+
+    <!-- Thin Terracotta Progress Bar -->
+    <div class="max-w-6xl mx-auto mt-1 px-2">
+      <div class="w-full h-1 bg-paper/80 rounded-full overflow-hidden">
+        <div id="top-scroll-bar" class="h-full bg-terracotta transition-none" style="width: 0%"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       3. PINNED SCROLLYTELLING STAGE
+       ========================================================================== -->
+  <main id="top">
+    <div id="scrolly-stage">
+      <div id="pinned-viewport" class="paper-grain">
+        <!-- Full-screen Scroll-Driven Canvas -->
+        <canvas id="scene-canvas" aria-label="Warm sunlit developer workspace illustration"></canvas>
+
+        <!-- ====================================================================
+             HOME (0%): HERO OVERLAY
+             ==================================================================== -->
+        <section id="section-hero" class="scroll-section">
+          <div class="interactive-panel max-w-xl w-full text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-20 mr-auto">
+            <div class="paper-card rounded-3xl p-5 sm:p-8">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peach/70 border border-terracotta/40 font-mono text-[11px] font-semibold text-terracottaDark mb-3">
+                <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+                <span id="hero-sub">Muhammad Hammad · Multan, Pakistan</span>
+              </div>
+
+              <h1 id="hero-headline" class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight leading-[1.1] mb-3">
+                I build software that does useful things.
+              </h1>
+
+              <p id="hero-tagline" class="text-xs sm:text-base text-charcoal leading-relaxed mb-5"></p>
+
+              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
+                <button type="button" data-scroll-to="0.65" class="btn-terracotta px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
+                  <span>View Projects</span>
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                  </svg>
+                </button>
+                <a id="hero-github-btn" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-cream px-4 py-2.5 rounded-xl font-mono text-xs font-semibold inline-flex items-center gap-2">
+                  <svg class="w-4 h-4 text-ink" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+              </div>
+
+              <!-- Subtle Hero Footer Scroll Cue -->
+              <div class="mt-5 pt-3.5 border-t border-borderWarm flex items-center justify-center sm:justify-start">
+                <button type="button" data-scroll-to="0.25" class="inline-flex items-center gap-1.5 text-xs font-medium text-muted hover:text-terracotta transition-colors">
+                  <span>Scroll</span>
+                  <svg class="w-3.5 h-3.5 text-terracotta animate-scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M12 5v14"></path>
+                    <path d="m19 12-7 7-7-7"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             ABOUT (25%): BACKGROUND, EDUCATION, INTERNSHIP & CERTIFICATIONS
+             ==================================================================== -->
+        <section id="section-about" class="scroll-section">
+          <div class="interactive-panel max-w-4xl w-full mx-auto">
+            <div class="paper-card rounded-3xl p-4 sm:p-7">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                <span class="px-3 py-0.5 rounded-full bg-mustard/30 border border-mustard font-mono text-[11px] font-semibold text-ink">
+                  01 · About
+                </span>
+                <span class="font-mono text-[11px] text-muted">Air University Multan Campus</span>
+              </div>
+
+              <h2 id="about-headline" class="font-display text-xl sm:text-3xl font-bold text-ink leading-tight mb-2">
+                BSCS student at Air University Multan. Freelance web developer.
+              </h2>
+
+              <p id="about-summary" class="text-xs sm:text-sm text-charcoal leading-relaxed mb-4"></p>
+
+              <!-- Compact Education, Internship & Certifications Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Education Card -->
+                <div class="paper-subcard rounded-2xl p-3.5">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+                    <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Education</h3>
+                  </div>
+                  <ul id="about-education-list" class="space-y-2 text-xs text-charcoal"></ul>
+                </div>
+
+                <!-- Internship & Certifications Card -->
+                <div class="paper-subcard rounded-2xl p-3.5 flex flex-col justify-between gap-3">
+                  <div>
+                    <div class="flex items-center gap-2 mb-1.5">
+                      <span class="w-2 h-2 rounded-full bg-sage"></span>
+                      <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Internship</h3>
+                    </div>
+                    <div id="about-internship-box"></div>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center gap-2 mb-1.5">
+                      <span class="w-2 h-2 rounded-full bg-mustard"></span>
+                      <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Certifications</h3>
+                    </div>
+                    <div id="about-certs-list" class="flex flex-wrap gap-1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             SKILLS (45%): 5 SKILL GROUPS FROM CV
+             ==================================================================== -->
+        <section id="section-skills" class="scroll-section">
+          <div class="interactive-panel max-w-5xl w-full mx-auto">
+            <div class="paper-card rounded-3xl p-4 sm:p-7">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="px-3 py-0.5 rounded-full bg-sage/25 border border-sage font-mono text-[11px] font-semibold text-ink">
+                  02 · Skills
+                </span>
+                <span class="font-mono text-[11px] text-muted">Full-Stack · Desktop · Databases &amp; Tools</span>
+              </div>
+
+              <h2 class="font-display text-xl sm:text-3xl font-bold text-ink mb-4">
+                Technical toolkit across the stack.
+              </h2>
+
+              <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
+                <!-- Populated dynamically from PORTFOLIO_CONFIG.skillGroups -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             PROJECTS (65%): 5 FEATURED PROJECTS FROM CV
+             ==================================================================== -->
+        <section id="section-projects" class="scroll-section">
+          <div class="interactive-panel max-w-6xl w-full mx-auto">
+            <div class="paper-card rounded-3xl p-4 sm:p-6">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                <span class="px-3 py-0.5 rounded-full bg-peach border border-terracotta/50 font-mono text-[11px] font-semibold text-terracottaDark">
+                  03 · Projects
+                </span>
+                <a id="projects-github-all" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] font-semibold text-terracotta hover:underline inline-flex items-center gap-1">
+                  <span>All repositories on GitHub</span>
+                  <span>→</span>
+                </a>
+              </div>
+
+              <h2 class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-ink mb-3">
+                Selected software projects.
+              </h2>
+
+              <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+                <!-- Populated dynamically from PORTFOLIO_CONFIG.projects -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             CONTACT (90%): CALL TO ACTION
+             ==================================================================== -->
+        <section id="section-contact" class="scroll-section">
+          <div class="interactive-panel max-w-2xl w-full mx-auto text-center">
+            <div class="paper-card rounded-3xl p-6 sm:p-10">
+              <span class="inline-block px-3.5 py-0.5 rounded-full bg-mustard/35 border border-mustard font-mono text-[11px] font-semibold text-ink mb-3">
+                04 · Contact
+              </span>
+
+              <h2 id="contact-headline" class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-3">
+                Let's build something together.
+              </h2>
+
+              <p id="contact-subtext" class="text-xs sm:text-base text-charcoal max-w-lg mx-auto mb-6"></p>
+
+              <!-- Primary Action Buttons (Email & GitHub) -->
+              <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+                <a id="contact-email-link" href="mailto:hammadmazhar512@gmail.com" class="btn-terracotta px-5 py-3 rounded-2xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  <span id="contact-email-text">hammadmazhar512@gmail.com</span>
+                </a>
+
+                <a id="contact-github-link" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-cream px-5 py-3 rounded-2xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
+                  <svg class="w-4 h-4 text-ink" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                  </svg>
+                  <span id="contact-github-text">github.com/Hammadmazhar61245</span>
+                </a>
+              </div>
+
+              <!-- Location & Spoken Languages Footer -->
+              <div class="pt-4 border-t border-borderWarm flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-mono text-xs text-charcoal">
+                <span id="contact-location-text">Multan, Pakistan</span>
+                <span>·</span>
+                <span id="contact-languages-text">English (Professional) · Urdu (Native)</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       4. SINGLE CONFIGURATION OBJECT + SCROLLYTELLING & CANVAS ENGINE
+       ========================================================================== -->
+  <script>
+    /**
+     * ============================================================================
+     * 1. PORTFOLIO CONFIGURATION OBJECT (Single Source of Truth)
+     * ============================================================================
+     */
+    const PORTFOLIO_CONFIG = {
+      personal: {
+        name: "Muhammad Hammad",
+        location: "Multan, Pakistan",
+        email: "hammadmazhar512@gmail.com",
+        github: "https://github.com/Hammadmazhar61245",
+        githubHandle: "github.com/Hammadmazhar61245",
+        languagesSpoken: "English (Professional) · Urdu (Native)"
+      },
+
+      sequence: {
+        frameCount: 300,
+        framePath: (index) => `frames/frame_${String(index).padStart(4, "0")}.webp`
+      },
+
+      hero: {
+        headline: "I build software that does useful things.",
+        subheadline: "Muhammad Hammad · Multan, Pakistan",
+        tagline: "Computer Science student and freelance full-stack developer building multi-tenant SaaS platforms, ML-powered trading systems, and desktop applications."
+      },
+
+      about: {
+        headline: "BSCS student at Air University Multan. Freelance web developer.",
+        summary: "Computer Science student at Air University Multan Campus with hands-on experience in full-stack web development, database design, and desktop application development. Comfortable working across the stack, from SaaS platforms to ML-powered bots. Quick to pick up new tools and focused on building useful software.",
+        education: [
+          {
+            degree: "BS in Computer Science",
+            institution: "Air University Multan Campus",
+            period: "2024 – Present",
+            badge: "CGPA: 3.2/4.0"
+          },
+          {
+            degree: "FSc Pre-Medical",
+            institution: "Multan Nishat College",
+            period: "2023",
+            badge: "965/1000"
+          },
+          {
+            degree: "Matriculation (Pre-Medical)",
+            institution: "Zakariya Public School",
+            period: "2021",
+            badge: "1092/1100"
+          }
+        ],
+        internship: {
+          role: "Python Programming Intern",
+          company: "SyntecXHub",
+          period: "6 July 2026 – 17 August 2026",
+          description: "Completed the Python Programming internship program with active participation."
+        },
+        certifications: [
+          "Web Development · Coursera",
+          "Programming Fundamentals · Coursera",
+          "Database Systems · Coursera",
+          "IoT for Everyone · Coursera",
+          "Bash Scripting"
+        ]
+      },
+
+      skillGroups: [
+        {
+          category: "Languages",
+          accent: "terracotta",
+          items: ["C++", "C#", "JavaScript", "Python", "SQL", "PHP"]
+        },
+        {
+          category: "Frontend",
+          accent: "mustard",
+          items: ["HTML", "CSS", "React", "Tailwind CSS", "Bootstrap"]
+        },
+        {
+          category: "Backend",
+          accent: "sage",
+          items: ["Node.js", "Express", "Next.js"]
+        },
+        {
+          category: "Frameworks",
+          accent: "terracotta",
+          items: [".NET", "Django", "Flask", "WordPress"]
+        },
+        {
+          category: "Databases & Tools",
+          accent: "sage",
+          items: ["MongoDB", "SQL Server", "MySQL", "Git", "GitHub", "VS Code", "Bash", "Linux"]
+        }
+      ],
+
+      projects: [
+        {
+          title: "Event Tickets SaaS",
+          stack: ["MERN Stack", "React", "Node.js", "MongoDB"],
+          description: "Multi-tenant platform for event creation, ticket management, and attendee tracking with user authentication and an analytics dashboard.",
+          github: "https://github.com/Hammadmazhar61245"
+        },
+        {
+          title: "XAU Auto Trading Bot",
+          stack: ["Python", "MetaTrader 5", "LightGBM"],
+          description: "ML ensemble with technical indicators for automated gold trading on MetaTrader 5, featuring stop-loss, take-profit, and trailing stops.",
+          github: "https://github.com/Hammadmazhar61245"
+        },
+        {
+          title: "AI Screen Assistant",
+          stack: ["Python", "OpenAI API", "GPT-4"],
+          description: "Personal AI assistant that reads on-screen content in real time and responds contextually using the OpenAI API (GPT-4).",
+          github: "https://github.com/Hammadmazhar61245"
+        },
+        {
+          title: "Hostel Management System",
+          stack: ["C#", "SQL Server", "WinForms"],
+          description: "C# desktop application for hostel room allocation, student records, fee tracking, and comprehensive admin reporting.",
+          github: "https://github.com/Hammadmazhar61245"
+        },
+        {
+          title: "Railway Reservation System",
+          stack: ["C#", "SQL Server", ".NET Desktop"],
+          description: "Train booking desktop application covering passenger management, scheduling, seat allocation, and user feedback.",
+          github: "https://github.com/Hammadmazhar61245"
+        }
+      ],
+
+      contact: {
+        headline: "Let's build something together.",
+        subtext: "Available for freelance web and desktop projects, software engineering internships, and collaborative builds."
+      }
+    };
+
+    /**
+     * ============================================================================
+     * 2. RENDER CONTENT INTO DOM
+     * ============================================================================
+     */
+    function renderPortfolioContent() {
+      const cfg = PORTFOLIO_CONFIG;
+
+      // Header & Preloader Identity
+      document.getElementById("loader-name").textContent = cfg.personal.name;
+      document.getElementById("nav-name").textContent = cfg.personal.name;
+      document.getElementById("nav-location").textContent = cfg.personal.location;
+
+      // Home (0%)
+      document.getElementById("hero-headline").textContent = cfg.hero.headline;
+      document.getElementById("hero-sub").textContent = cfg.hero.subheadline;
+      document.getElementById("hero-tagline").textContent = cfg.hero.tagline;
+      document.getElementById("hero-github-btn").href = cfg.personal.github;
+
+      // About (25%)
+      document.getElementById("about-headline").textContent = cfg.about.headline;
+      document.getElementById("about-summary").textContent = cfg.about.summary;
+
+      const eduList = document.getElementById("about-education-list");
+      eduList.innerHTML = cfg.about.education.map(edu => `
+        <li class="border-b border-borderWarm/70 pb-1.5 last:border-none last:pb-0">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-semibold text-ink">${edu.degree}</span>
+            <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-cream border border-borderWarm text-terracotta font-semibold shrink-0">${edu.badge}</span>
+          </div>
+          <div class="text-[11px] text-muted flex justify-between mt-0.5">
+            <span>${edu.institution}</span>
+            <span class="font-mono">${edu.period}</span>
+          </div>
+        </li>
+      `).join("");
+
+      const internBox = document.getElementById("about-internship-box");
+      internBox.innerHTML = `
+        <div class="bg-cream/90 rounded-xl p-2.5 border border-borderWarm">
+          <div class="flex flex-wrap items-center justify-between gap-1">
+            <span class="font-semibold text-xs text-ink">${cfg.about.internship.role}</span>
+            <span class="font-mono text-[10px] text-terracotta font-semibold">${cfg.about.internship.company}</span>
+          </div>
+          <span class="block font-mono text-[10px] text-muted mb-1">${cfg.about.internship.period}</span>
+          <p class="text-[11px] text-charcoal leading-snug">${cfg.about.internship.description}</p>
+        </div>
+      `;
+
+      const certsList = document.getElementById("about-certs-list");
+      certsList.innerHTML = cfg.about.certifications.map(cert => `
+        <span class="px-2 py-0.5 rounded-md bg-cream border border-borderWarm font-mono text-[10px] text-charcoal">
+          ${cert}
+        </span>
+      `).join("");
+
+      // Skills (45%)
+      const skillsGrid = document.getElementById("skills-grid");
+      const badgeStyles = {
+        terracotta: "bg-peach/65 border-terracotta/50 text-ink",
+        mustard: "bg-mustard/30 border-mustard text-ink",
+        sage: "bg-sage/25 border-sage text-ink"
+      };
+      const dotStyles = {
+        terracotta: "bg-terracotta",
+        mustard: "bg-mustard",
+        sage: "bg-sage"
+      };
+
+      skillsGrid.innerHTML = cfg.skillGroups.map((group, idx) => `
+        <div class="paper-subcard rounded-2xl p-3.5 flex flex-col justify-between ${idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full ${dotStyles[group.accent] || 'bg-terracotta'}"></span>
+                <h3 class="font-display font-bold text-sm sm:text-base text-ink">${group.category}</h3>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              ${group.items.map(skill => `
+                <span class="px-2.5 py-0.5 rounded-lg border font-mono text-[11px] font-medium ${badgeStyles[group.accent] || badgeStyles.terracotta}">
+                  ${skill}
+                </span>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      // Projects (65%)
+      document.getElementById("projects-github-all").href = cfg.personal.github;
+      const projectsGrid = document.getElementById("projects-grid");
+      projectsGrid.innerHTML = cfg.projects.map((proj, index) => `
+        <article class="paper-subcard bg-cream/95 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-paper text-terracotta">
+                0${index + 1}
+              </span>
+              <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] text-charcoal hover:text-terracotta inline-flex items-center gap-1 font-medium">
+                <span>GitHub</span>
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7"></path>
+                  <path d="M7 7h10v10"></path>
+                </svg>
+              </a>
+            </div>
+            <h3 class="font-display font-bold text-sm sm:text-base text-ink mb-1">${proj.title}</h3>
+            <p class="text-[11px] sm:text-xs text-charcoal leading-snug mb-2.5">${proj.description}</p>
+          </div>
+          <div class="flex flex-wrap gap-1 pt-2 border-t border-borderWarm/70">
+            ${proj.stack.map(tech => `
+              <span class="px-1.5 py-0.5 rounded bg-paper font-mono text-[10px] text-charcoal font-medium">
+                ${tech}
+              </span>
+            `).join("")}
+          </div>
+        </article>
+      `).join("");
+
+      // Contact (90%)
+      document.getElementById("contact-headline").textContent = cfg.contact.headline;
+      document.getElementById("contact-subtext").textContent = cfg.contact.subtext;
+      const emailLink = document.getElementById("contact-email-link");
+      emailLink.href = `mailto:${cfg.personal.email}`;
+      document.getElementById("contact-email-text").textContent = cfg.personal.email;
+      const githubLink = document.getElementById("contact-github-link");
+      githubLink.href = cfg.personal.github;
+      document.getElementById("contact-github-text").textContent = cfg.personal.githubHandle;
+      document.getElementById("contact-location-text").textContent = cfg.personal.location;
+      document.getElementById("contact-languages-text").textContent = cfg.personal.languagesSpoken;
+    }
+
+    /**
+     * ============================================================================
+     * 3. SCROLL-DRIVEN CANVAS ENGINE (AUTOMATICALLY USES `frames/` OR SILENT FALLBACK)
+     * ============================================================================
+     */
+    const canvas = document.getElementById("scene-canvas");
+    const ctx = canvas.getContext("2d", { alpha: false });
+
+    const TOTAL_FRAMES = PORTFOLIO_CONFIG.sequence.frameCount;
+    const loadedImages = new Array(TOTAL_FRAMES).fill(null);
+    const playhead = { frame: 0 };
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      renderFrame(Math.round(playhead.frame));
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    function drawImageCover(ctx, img, cw, ch) {
+      const iw = img.naturalWidth || img.width;
+      const ih = img.naturalHeight || img.height;
+      if (!iw || !ih) return;
+
+      const scale = Math.max(cw / iw, ch / ih);
+      const sw = iw * scale;
+      const sh = ih * scale;
+      const dx = (cw - sw) * 0.5;
+      const dy = (ch - sh) * 0.5;
+
+      ctx.fillStyle = "#FAF6EE";
+      ctx.fillRect(0, 0, cw, ch);
+      ctx.drawImage(img, dx, dy, sw, sh);
+    }
+
+    /**
+     * Procedural 3D Paper-Craft Fly-Through Renderer
+     * Silently used if `frames/frame_0001.webp` is not present.
+     */
+    function drawProceduralPaperWorld(ctx, frameIndex, cw, ch) {
+      const progress = Math.max(0, Math.min(1, frameIndex / (TOTAL_FRAMES - 1)));
+
+      // 1. Warm Sunlit Cream Wall Background
+      const bgGrad = ctx.createLinearGradient(0, 0, cw, ch);
+      bgGrad.addColorStop(0, "#FAF6EE");
+      bgGrad.addColorStop(0.6, "#F6EFE2");
+      bgGrad.addColorStop(1, "#EFE5D4");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, cw, ch);
+
+      const cx = cw * 0.5;
+      const cy = ch * 0.52;
+      const minDim = Math.min(cw, ch);
+
+      // End wall fade-out (from 78% to 100%, camera settles on clean cream wall)
+      const endWallFade = progress > 0.78 ? Math.min(1, (progress - 0.78) / 0.18) : 0;
+
+      ctx.save();
+
+      // Diagonal Warm Sunlight Beams
+      const sunAlpha = (1 - endWallFade * 0.8) * 0.2;
+      ctx.fillStyle = `rgba(242, 177, 52, ${sunAlpha})`;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(cw * 0.45, 0);
+      ctx.lineTo(cw * 0.85, ch);
+      ctx.lineTo(cw * 0.15, ch);
+      ctx.closePath();
+      ctx.fill();
+
+      // Subtle baseboard line on the cream wall
+      ctx.strokeStyle = "rgba(213, 199, 174, 0.55)";
+      ctx.lineWidth = Math.max(1, cw * 0.0012);
+      ctx.beginPath();
+      ctx.moveTo(0, ch * 0.88);
+      ctx.lineTo(cw, ch * 0.88);
+      ctx.stroke();
+
+      // Camera forward dolly z-position (0 -> 95)
+      const camZ = progress * 95;
+
+      function project(x, y, z) {
+        const relZ = z - camZ;
+        if (relZ <= 1.5) return null;
+        const fov = minDim * 0.95;
+        const scale = fov / relZ;
+        return {
+          x: cx + x * scale,
+          y: cy + y * scale,
+          scale,
+          relZ
+        };
+      }
+
+      // 2. Paper-Craft Desk Surface
+      const deskP = project(0, 14, 32);
+      if (deskP && progress < 0.75) {
+        const deskAlpha = Math.max(0, 1 - Math.max(0, (progress - 0.52) / 0.22));
+        ctx.save();
+        ctx.globalAlpha = deskAlpha;
+
+        ctx.fillStyle = "#E9DEC9";
+        ctx.strokeStyle = "#D5C7AE";
+        ctx.lineWidth = Math.max(1, 2 * (deskP.scale / 25));
+
+        const wTop = 95 * deskP.scale;
+        const wBot = 175 * deskP.scale;
+        const hDesk = 48 * deskP.scale;
+
+        ctx.beginPath();
+        ctx.moveTo(cx - wTop, deskP.y - hDesk * 0.25);
+        ctx.lineTo(cx + wTop, deskP.y - hDesk * 0.25);
+        ctx.lineTo(cx + wBot, deskP.y + hDesk);
+        ctx.lineTo(cx - wBot, deskP.y + hDesk);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#E4572E";
+        ctx.fillRect(cx - wBot, deskP.y + hDesk, wBot * 2, 5 * (deskP.scale / 20));
+        ctx.restore();
+      }
+
+      // 3. 3D Paper-Craft Scene Elements
+      const sceneObjects = [
+        { type: "card", x: -24, y: -10, z: 82, w: 16, h: 10, color: "#FAD4C0", accent: "#E4572E" },
+        { type: "card", x: 26, y: -8, z: 75, w: 18, h: 11, color: "#FFFDF9", accent: "#7A9E7E" },
+        { type: "codeStrip", x: -16, y: 6, z: 68, w: 15, h: 8, color: "#F2B134" },
+        { type: "card", x: 18, y: 8, z: 62, w: 16, h: 9, color: "#FAF6EE", accent: "#E4572E" },
+        { type: "codeStrip", x: 0, y: -13, z: 56, w: 20, h: 7, color: "#7A9E7E" },
+        { type: "card", x: -20, y: -4, z: 48, w: 14, h: 9, color: "#FAD4C0", accent: "#F2B134" },
+        { type: "plant", x: 25, y: 6, z: 42 },
+        { type: "notebook", x: -23, y: 9, z: 38 },
+        { type: "coffee", x: 19, y: 10, z: 34 },
+        { type: "laptop", x: 0, y: 5, z: 28 }
+      ];
+
+      for (const obj of sceneObjects) {
+        const p = project(obj.x, obj.y, obj.z);
+        if (!p) continue;
+
+        const nearAlpha = p.relZ < 7 ? Math.max(0, (p.relZ - 1.5) / 5.5) : 1;
+        const farAlpha = 1 - endWallFade;
+        const alpha = nearAlpha * farAlpha;
+        if (alpha <= 0.01) continue;
+
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        const s = p.scale;
+
+        if (obj.type === "laptop") {
+          const lw = 22 * s;
+          const lh = 14 * s;
+
+          ctx.fillStyle = "rgba(30, 26, 23, 0.10)";
+          ctx.beginPath();
+          ctx.roundRect(p.x - lw * 0.65, p.y + lh * 0.45, lw * 1.3, lh * 0.25, 4);
+          ctx.fill();
+
+          ctx.fillStyle = "#2E2823";
+          ctx.strokeStyle = "#E4572E";
+          ctx.lineWidth = Math.max(1.5, 0.25 * s);
+          ctx.beginPath();
+          ctx.roundRect(p.x - lw * 0.5, p.y - lh * 0.5, lw, lh, Math.max(3, 0.8 * s));
+          ctx.fill();
+          ctx.stroke();
+
+          // Warm orange, peach & cream screen glow
+          const scrGrad = ctx.createLinearGradient(p.x - lw * 0.45, p.y - lh * 0.42, p.x + lw * 0.45, p.y + lh * 0.38);
+          scrGrad.addColorStop(0, "#FAF6EE");
+          scrGrad.addColorStop(0.55, "#FAD4C0");
+          scrGrad.addColorStop(1, "#F2B134");
+          ctx.fillStyle = scrGrad;
+          ctx.beginPath();
+          ctx.roundRect(p.x - lw * 0.44, p.y - lh * 0.42, lw * 0.88, lh * 0.78, Math.max(2, 0.4 * s));
+          ctx.fill();
+
+          ctx.fillStyle = "#E4572E";
+          ctx.fillRect(p.x - lw * 0.36, p.y - lh * 0.28, lw * 0.32, lh * 0.07);
+          ctx.fillStyle = "#7A9E7E";
+          ctx.fillRect(p.x - lw * 0.36, p.y - lh * 0.14, lw * 0.52, lh * 0.06);
+          ctx.fillStyle = "#F2B134";
+          ctx.fillRect(p.x - lw * 0.28, p.y - lh * 0.02, lw * 0.42, lh * 0.06);
+          ctx.fillStyle = "#1E1A17";
+          ctx.fillRect(p.x - lw * 0.36, p.y + lh * 0.10, lw * 0.26, lh * 0.06);
+
+          ctx.fillStyle = "#D9CEBE";
+          ctx.beginPath();
+          ctx.moveTo(p.x - lw * 0.52, p.y + lh * 0.48);
+          ctx.lineTo(p.x + lw * 0.52, p.y + lh * 0.48);
+          ctx.lineTo(p.x + lw * 0.68, p.y + lh * 0.68);
+          ctx.lineTo(p.x - lw * 0.68, p.y + lh * 0.68);
+          ctx.closePath();
+          ctx.fill();
+        } else if (obj.type === "coffee") {
+          const cwCup = 5.5 * s;
+          const chCup = 6.5 * s;
+
+          ctx.strokeStyle = "#E4572E";
+          ctx.lineWidth = Math.max(2, 0.55 * s);
+          ctx.beginPath();
+          ctx.arc(p.x + cwCup * 0.5, p.y, cwCup * 0.28, -Math.PI * 0.5, Math.PI * 0.5);
+          ctx.stroke();
+
+          ctx.fillStyle = "#E4572E";
+          ctx.beginPath();
+          ctx.roundRect(p.x - cwCup * 0.5, p.y - chCup * 0.5, cwCup, chCup, Math.max(2, 0.6 * s));
+          ctx.fill();
+
+          ctx.fillStyle = "#FAF6EE";
+          ctx.fillRect(p.x - cwCup * 0.52, p.y - chCup * 0.5, cwCup * 1.04, chCup * 0.16);
+        } else if (obj.type === "plant") {
+          const pw = 6.5 * s;
+          const ph = 6.5 * s;
+
+          ctx.fillStyle = "#F2B134";
+          ctx.beginPath();
+          ctx.moveTo(p.x - pw * 0.5, p.y - ph * 0.2);
+          ctx.lineTo(p.x + pw * 0.5, p.y - ph * 0.2);
+          ctx.lineTo(p.x + pw * 0.36, p.y + ph * 0.6);
+          ctx.lineTo(p.x - pw * 0.36, p.y + ph * 0.6);
+          ctx.closePath();
+          ctx.fill();
+
+          const leaves = [
+            { dx: 0, dy: -0.75, rx: 0.22, ry: 0.6, rot: 0 },
+            { dx: -0.38, dy: -0.55, rx: 0.2, ry: 0.5, rot: -0.5 },
+            { dx: 0.38, dy: -0.55, rx: 0.2, ry: 0.5, rot: 0.5 }
+          ];
+          ctx.fillStyle = "#7A9E7E";
+          leaves.forEach(lf => {
+            ctx.save();
+            ctx.translate(p.x + lf.dx * pw, p.y + lf.dy * ph);
+            ctx.rotate(lf.rot);
+            ctx.beginPath();
+            ctx.ellipse(0, 0, pw * lf.rx, ph * lf.ry, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          });
+        } else if (obj.type === "notebook") {
+          const nw = 10 * s;
+          const nh = 7 * s;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(-0.18);
+          ctx.fillStyle = "#FAF6EE";
+          ctx.strokeStyle = "#E4572E";
+          ctx.lineWidth = Math.max(1.5, 0.2 * s);
+          ctx.beginPath();
+          ctx.roundRect(-nw * 0.5, -nh * 0.5, nw, nh, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = "#F2B134";
+          ctx.fillRect(-nw * 0.35, -nh * 0.22, nw * 0.7, nh * 0.08);
+          ctx.fillRect(-nw * 0.35, 0, nw * 0.55, nh * 0.08);
+          ctx.restore();
+        } else if (obj.type === "card") {
+          const cwCard = obj.w * s;
+          const chCard = obj.h * s;
+
+          ctx.fillStyle = "rgba(30, 26, 23, 0.07)";
+          ctx.beginPath();
+          ctx.roundRect(p.x - cwCard * 0.5 + 4, p.y - chCard * 0.5 + 6, cwCard, chCard, Math.max(3, 0.6 * s));
+          ctx.fill();
+
+          ctx.fillStyle = obj.color;
+          ctx.strokeStyle = obj.accent;
+          ctx.lineWidth = Math.max(1.2, 0.18 * s);
+          ctx.beginPath();
+          ctx.roundRect(p.x - cwCard * 0.5, p.y - chCard * 0.5, cwCard, chCard, Math.max(3, 0.6 * s));
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = obj.accent;
+          ctx.fillRect(p.x - cwCard * 0.38, p.y - chCard * 0.25, cwCard * 0.42, chCard * 0.12);
+          ctx.fillStyle = "#4A423B";
+          ctx.fillRect(p.x - cwCard * 0.38, p.y + chCard * 0.02, cwCard * 0.68, chCard * 0.08);
+          ctx.fillRect(p.x - cwCard * 0.38, p.y + chCard * 0.20, cwCard * 0.50, chCard * 0.08);
+        } else if (obj.type === "codeStrip") {
+          const sw = obj.w * s;
+          const sh = obj.h * s;
+          ctx.fillStyle = obj.color;
+          ctx.beginPath();
+          ctx.roundRect(p.x - sw * 0.5, p.y - sh * 0.5, sw, sh, Math.max(3, 0.5 * s));
+          ctx.fill();
+
+          ctx.fillStyle = "#FAF6EE";
+          ctx.fillRect(p.x - sw * 0.36, p.y - sh * 0.12, sw * 0.72, sh * 0.24);
+        }
+
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    function renderFrame(index) {
+      const clampedIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
+      const cw = canvas.width;
+      const ch = canvas.height;
+
+      const img = loadedImages[clampedIndex];
+      if (img && img.complete && (img.naturalWidth > 0 || img.width > 0)) {
+        drawImageCover(ctx, img, cw, ch);
+      } else {
+        drawProceduralPaperWorld(ctx, clampedIndex, cw, ch);
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 4. SILENT PRELOADER (AUTOMATICALLY FADES OUT WHEN READY)
+     * ============================================================================
+     */
+    function preloadImageSequence() {
+      const loaderOverlay = document.getElementById("loader-overlay");
+      const loaderBar = document.getElementById("loader-bar");
+
+      let loadedCount = 0;
+      let failedCount = 0;
+      let finished = false;
+
+      function dismissPreloader() {
+        if (finished) return;
+        finished = true;
+        loaderBar.style.width = "100%";
+        renderFrame(0);
+
+        setTimeout(() => {
+          loaderOverlay.style.opacity = "0";
+          loaderOverlay.style.pointerEvents = "none";
+          setTimeout(() => {
+            loaderOverlay.style.display = "none";
+          }, 500);
+        }, 200);
+      }
+
+      const probeImg = new Image();
+      probeImg.onload = () => {
+        loadedImages[0] = probeImg;
+        loadedCount = 1;
+
+        for (let i = 2; i <= TOTAL_FRAMES; i++) {
+          const img = new Image();
+          img.onload = () => {
+            loadedImages[i - 1] = img;
+            loadedCount++;
+            const pct = Math.round(((loadedCount + failedCount) / TOTAL_FRAMES) * 100);
+            loaderBar.style.width = `${pct}%`;
+            if (loadedCount + failedCount >= TOTAL_FRAMES) {
+              dismissPreloader();
+            }
+          };
+          img.onerror = () => {
+            failedCount++;
+            const pct = Math.round(((loadedCount + failedCount) / TOTAL_FRAMES) * 100);
+            loaderBar.style.width = `${pct}%`;
+            if (loadedCount + failedCount >= TOTAL_FRAMES) {
+              dismissPreloader();
+            }
+          };
+          img.src = PORTFOLIO_CONFIG.sequence.framePath(i);
+        }
+      };
+
+      // If frames/frame_0001.webp is absent, silently fall back to procedural scene
+      probeImg.onerror = () => {
+        let progress = 0;
+        const timer = setInterval(() => {
+          progress += 25;
+          loaderBar.style.width = `${Math.min(100, progress)}%`;
+          if (progress >= 100) {
+            clearInterval(timer);
+            dismissPreloader();
+          }
+        }, 50);
+      };
+
+      probeImg.src = PORTFOLIO_CONFIG.sequence.framePath(1);
+    }
+
+    /**
+     * ============================================================================
+     * 5. GSAP SCROLLTRIGGER & ACTIVE NAVIGATION STATE
+     * ============================================================================
+     */
+    function updateActiveNav(progress) {
+      let activeKey = "home";
+      if (progress >= 0.82) {
+        activeKey = "contact";
+      } else if (progress >= 0.57) {
+        activeKey = "projects";
+      } else if (progress >= 0.37) {
+        activeKey = "skills";
+      } else if (progress >= 0.17) {
+        activeKey = "about";
+      }
+
+      document.querySelectorAll("[data-nav]").forEach((btn) => {
+        if (btn.getAttribute("data-nav") === activeKey) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    function initScrollytelling() {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const stage = document.getElementById("scrolly-stage");
+      const topScrollBar = document.getElementById("top-scroll-bar");
+
+      // Smooth scroll navigation links
+      document.querySelectorAll("[data-scroll-to]").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const ratio = parseFloat(btn.getAttribute("data-scroll-to") || "0");
+          const maxScroll = stage.offsetHeight - window.innerHeight;
+          window.scrollTo({
+            top: Math.max(0, maxScroll * ratio),
+            behavior: "smooth"
+          });
+        });
+      });
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReducedMotion) {
+        renderFrame(0);
+        return;
+      }
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: stage,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.35,
+          onUpdate: (self) => {
+            const pct = (self.progress * 100).toFixed(1);
+            if (topScrollBar) topScrollBar.style.width = `${pct}%`;
+            updateActiveNav(self.progress);
+          }
+        }
+      });
+
+      // Scrub canvas frames 0 -> 299 across 100 timeline units
+      tl.to(
+        playhead,
+        {
+          frame: TOTAL_FRAMES - 1,
+          duration: 100,
+          ease: "none",
+          onUpdate: () => {
+            renderFrame(Math.round(playhead.frame));
+          }
+        },
+        0
+      );
+
+      // Home (0%)
+      const heroSec = document.getElementById("section-hero");
+      gsap.set(heroSec, { autoAlpha: 1, y: 0 });
+      tl.to(heroSec, { autoAlpha: 0, y: -36, duration: 6, ease: "power2.inOut" }, 13);
+
+      // About (25%)
+      const aboutSec = document.getElementById("section-about");
+      gsap.set(aboutSec, { autoAlpha: 0, y: 40 });
+      tl.to(aboutSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 20);
+      tl.to(aboutSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 34.5);
+
+      // Skills (45%)
+      const skillsSec = document.getElementById("section-skills");
+      gsap.set(skillsSec, { autoAlpha: 0, y: 40 });
+      tl.to(skillsSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 40);
+      tl.to(skillsSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 54.5);
+
+      // Projects (65%)
+      const projectsSec = document.getElementById("section-projects");
+      gsap.set(projectsSec, { autoAlpha: 0, y: 40 });
+      tl.to(projectsSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 60);
+      tl.to(projectsSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 79.5);
+
+      // Contact (90%)
+      const contactSec = document.getElementById("section-contact");
+      gsap.set(contactSec, { autoAlpha: 0, y: 40 });
+      tl.to(contactSec, { autoAlpha: 1, y: 0, duration: 5, ease: "power2.out" }, 85.5);
+    }
+
+    /**
+     * ============================================================================
+     * 6. INITIALIZE PORTFOLIO
+     * ============================================================================
+     */
+    window.addEventListener("DOMContentLoaded", () => {
+      renderPortfolioContent();
+      resizeCanvas();
+      initScrollytelling();
+      preloadImageSequence();
+    });
+  </script>
+</body>
+</html>
