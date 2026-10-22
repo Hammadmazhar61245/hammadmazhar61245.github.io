@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Hammad — Full-Stack Developer</title>
-  <meta name="description" content="Portfolio of Muhammad Hammad, Full-Stack Developer and Computer Science student at Air University Multan building SaaS platforms, AI assistants, trading automation, and desktop applications." />
+  <title>Muhammad Hammad — Full-Stack Developer & Software Engineer</title>
+  <meta name="description" content="Portfolio of Muhammad Hammad, Full-Stack Developer & Software Engineer in Multan, Pakistan. Building scalable SaaS platforms, intelligent automation tools, and desktop software." />
 
   <!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Clean UI), JetBrains Mono (Subtle Tags) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
             cream: '#FAF6EE',
             paper: '#F3ECE0',
             card: '#FFFDF9',
-            ink: '#1E1A17',
+            ink: '#1E1915',
             charcoal: '#4A423B',
             muted: '#786E65',
             terracotta: '#E4572E',
@@ -55,7 +55,7 @@
       color-scheme: light;
       --bg-cream: #FAF6EE;
       --bg-paper: #F3ECE0;
-      --text-ink: #1E1A17;
+      --text-ink: #1E1915;
       --text-muted: #5C534B;
       --accent-terracotta: #E4572E;
       --accent-mustard: #F2B134;
@@ -68,14 +68,26 @@
       -webkit-tap-highlight-color: rgba(228, 87, 46, 0.15);
     }
 
-    html, body {
+    html {
       margin: 0;
       padding: 0;
       background-color: var(--bg-cream);
       color: var(--text-ink);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: clip; /* 'hidden' on html+body breaks position: sticky */
-      scroll-behavior: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-cream);
+      color: var(--text-ink);
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
+      position: relative;
     }
 
     /* Override browser default blue links & focus rings */
@@ -87,7 +99,7 @@
     *:focus, *:focus-visible {
       outline: 2px solid var(--accent-terracotta) !important;
       outline-offset: 3px !important;
-      box-shadow: 0 0 0 4px rgba(242, 177, 52, 0.25) !important;
+      box-shadow: 0 0 0 4px rgba(242, 177, 52, 0.28) !important;
     }
 
     ::selection {
@@ -110,124 +122,185 @@
       background: #E4572E;
     }
 
+    /* Fixed Background Canvas (Never blocks scroll or clicks) */
+    #scene-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     /* Subtle Paper Grain Overlay */
     .paper-grain {
-      background-image: radial-gradient(rgba(30, 26, 23, 0.04) 1px, transparent 0);
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(30, 25, 21, 0.04) 1px, transparent 0);
       background-size: 24px 24px;
     }
 
-    /* Paper-craft tactile card styling */
+    /* Natural Scroll Container & Sections (Guarantees 100% visibility on scroll) */
+    #scrolly-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+
+    .scroll-section {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5.75rem 1rem 3.5rem;
+    }
+
+    /* Tactile Paper-Craft Main Card */
     .paper-card {
       background: rgba(255, 253, 249, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1.5px solid #E5DEC9;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 2px solid #1E1915;
       box-shadow:
-        0 12px 32px -12px rgba(30, 26, 23, 0.09),
-        0 3px 0 0 #E5DEC9;
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        0 18px 38px -14px rgba(30, 25, 21, 0.12),
+        0 5px 0 0 #1E1915;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
     }
 
     .paper-subcard {
-      background: rgba(243, 236, 224, 0.78);
-      border: 1px solid #E5DEC9;
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      background: rgba(243, 236, 224, 0.85);
+      border: 1.5px solid #D5CBB8;
+      box-shadow: 0 3px 0 0 #D5CBB8;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
 
     .paper-subcard:hover {
-      border-color: #E4572E;
+      background: #FFFDF9;
+      border-color: #1E1915;
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px -10px rgba(228, 87, 46, 0.14);
-    }
-
-    /* Warm Tactile Buttons */
-    .btn-terracotta {
-      background-color: #E4572E;
-      color: #FAF6EE;
-      border: 1.5px solid #C8431C;
-      box-shadow: 0 3px 0 0 #9E3212;
-      transition: all 0.18s ease;
-    }
-    .btn-terracotta:hover {
-      background-color: #D24920;
-      transform: translateY(-1.5px);
-      box-shadow: 0 4px 0 0 #9E3212;
-    }
-    .btn-terracotta:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 0 0 #9E3212;
-    }
-
-    .btn-cream {
-      background-color: #FAF6EE;
-      color: #1E1A17;
-      border: 1.5px solid #D5CBB8;
-      box-shadow: 0 3px 0 0 #D5CBB8;
-      transition: all 0.18s ease;
-    }
-    .btn-cream:hover {
-      border-color: #E4572E;
-      background-color: #FFFDF9;
-      transform: translateY(-1.5px);
       box-shadow: 0 4px 0 0 #E4572E;
     }
 
-    /* Navigation Active State */
+    /* ==========================================================================
+       REDESIGNED TACTILE PAPER-CRAFT BUTTONS
+       ========================================================================== */
+    .btn-craft-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      background-color: #E4572E;
+      color: #FAF6EE !important;
+      border: 2px solid #1E1915;
+      box-shadow: 0 4px 0 0 #1E1915;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-craft-primary:hover {
+      background-color: #D24920;
+      transform: translate(-1px, -2px);
+      box-shadow: 2px 6px 0 0 #1E1915;
+    }
+    .btn-craft-primary:active {
+      transform: translate(0, 2px);
+      box-shadow: 0 1px 0 0 #1E1915;
+    }
+
+    .btn-craft-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      background-color: #FFFDF9;
+      color: #1E1915 !important;
+      border: 2px solid #1E1915;
+      box-shadow: 0 4px 0 0 #1E1915;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-craft-secondary:hover {
+      background-color: #F2B134;
+      color: #1E1915 !important;
+      transform: translate(-1px, -2px);
+      box-shadow: 2px 6px 0 0 #1E1915;
+    }
+    .btn-craft-secondary:active {
+      transform: translate(0, 2px);
+      box-shadow: 0 1px 0 0 #1E1915;
+    }
+
+    .btn-craft-sage {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: #7A9E7E;
+      color: #FAF6EE !important;
+      border: 2px solid #1E1915;
+      box-shadow: 0 3px 0 0 #1E1915;
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-craft-sage:hover {
+      background-color: #668B6A;
+      transform: translate(-1px, -2px);
+      box-shadow: 2px 5px 0 0 #1E1915;
+    }
+    .btn-craft-sage:active {
+      transform: translate(0, 2px);
+      box-shadow: 0 1px 0 0 #1E1915;
+    }
+
+    .btn-craft-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      background-color: #FAF6EE;
+      color: #1E1915 !important;
+      border: 1.5px solid #1E1915;
+      box-shadow: 0 2px 0 0 #1E1915;
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-craft-mini:hover {
+      background-color: #F7D6C4;
+      transform: translateY(-1.5px);
+      box-shadow: 0 3px 0 0 #E4572E;
+      border-color: #E4572E;
+    }
+    .btn-craft-mini:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 0 #1E1915;
+    }
+
+    /* Navigation Buttons in Header */
     .nav-link {
       color: #4A423B;
-      transition: all 0.2s ease;
+      border: 1.5px solid transparent;
+      transition: all 0.18s ease;
+      cursor: pointer;
     }
     .nav-link:hover {
-      color: #1E1A17;
-      background-color: rgba(243, 236, 224, 0.8);
+      color: #1E1915;
+      background-color: #F3ECE0;
+      border-color: #D5CBB8;
     }
     .nav-link.active {
       background-color: #E4572E;
       color: #FAF6EE;
-      box-shadow: 0 2px 0 0 #9E3212;
-    }
-
-    /* Scrollytelling Stage & Section Layering */
-    #scrolly-stage {
-      position: relative;
-      width: 100%;
-      height: 600vh; /* 100vh viewport + 500vh scroll distance */
-    }
-
-    #pinned-viewport {
-      position: sticky;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    #scene-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      z-index: 1;
-    }
-
-    .scroll-section {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4.5rem 1rem 1.25rem;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .scroll-section .interactive-panel {
-      pointer-events: auto;
-      width: 100%;
+      border-color: #1E1915;
+      box-shadow: 0 2px 0 0 #1E1915;
     }
 
     @keyframes gentleBounce {
@@ -238,30 +311,16 @@
       animation: gentleBounce 2s infinite ease-in-out;
     }
 
-    /* Reduced Motion Accessibility Mode */
+    /* Reduced Motion Support */
     @media (prefers-reduced-motion: reduce) {
-      #scrolly-stage {
-        height: auto !important;
-      }
-      #pinned-viewport {
-        position: relative !important;
-        height: auto !important;
-        overflow: visible !important;
-      }
-      #scene-canvas {
-        position: fixed !important;
-        opacity: 0.22 !important;
-      }
-      .scroll-section {
-        position: relative !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-        min-height: auto;
-        padding: 5.5rem 1.25rem 2.5rem;
+      html {
+        scroll-behavior: auto;
       }
       .animate-scroll-cue {
         animation: none !important;
+      }
+      .paper-card, .paper-subcard, .btn-craft-primary, .btn-craft-secondary {
+        transition: none !important;
       }
     }
   </style>
@@ -269,274 +328,310 @@
 <body class="bg-cream text-ink antialiased selection:bg-mustard selection:text-ink">
 
   <!-- ==========================================================================
-       1. MINIMAL BRANDED PRELOADER
+       1. MINIMAL BRANDED PRELOADER (AUTO-DISMISSES QUICKLY)
        ========================================================================== -->
-  <div id="loader-overlay" class="fixed inset-0 z-50 bg-cream paper-grain flex flex-col items-center justify-center p-6 transition-opacity duration-500">
+  <div id="loader-overlay" class="fixed inset-0 z-50 bg-cream flex flex-col items-center justify-center p-6 transition-opacity duration-500">
     <div class="max-w-xs w-full text-center">
-      <div class="w-12 h-12 mx-auto mb-3.5 rounded-2xl bg-terracotta text-cream font-display font-bold text-lg flex items-center justify-center shadow-sm border border-terracottaDark">
+      <div class="w-12 h-12 mx-auto mb-3.5 rounded-2xl bg-terracotta text-cream font-display font-bold text-lg flex items-center justify-center border-2 border-ink shadow-[0_3px_0_0_#1E1915]">
         MH
       </div>
       <h1 class="font-display text-xl font-bold text-ink tracking-tight mb-1" id="loader-name">Muhammad Hammad</h1>
       <p class="text-xs text-muted mb-4">Loading portfolio...</p>
-      <div class="w-full h-1.5 bg-paper rounded-full overflow-hidden border border-borderWarm">
-        <div id="loader-bar" class="h-full bg-terracotta rounded-full transition-all duration-150" style="width: 0%"></div>
+      <div class="w-full h-2 bg-paper rounded-full overflow-hidden border border-ink/30">
+        <div id="loader-bar" class="h-full bg-terracotta rounded-full transition-all duration-150" style="width: 15%"></div>
       </div>
     </div>
   </div>
 
   <!-- ==========================================================================
-       2. HEADER & SCROLL PROGRESS BAR
+       2. FIXED BACKGROUND CANVAS & PAPER GRAIN
+       ========================================================================== -->
+  <canvas id="scene-canvas" aria-label="Warm sunlit developer workspace illustration"></canvas>
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       3. FIXED HEADER & SCROLL PROGRESS BAR
        ========================================================================== -->
   <header class="fixed top-0 left-0 right-0 z-40 px-3 sm:px-6 pt-2.5 pointer-events-none">
-    <div class="max-w-6xl mx-auto paper-card rounded-2xl px-3 sm:px-5 py-2 flex items-center justify-between gap-2 pointer-events-auto">
+    <div class="max-w-6xl mx-auto bg-card/95 backdrop-blur-md border-2 border-ink shadow-[0_4px_0_0_#1E1915] rounded-2xl px-3 sm:px-5 py-2 flex items-center justify-between gap-2 pointer-events-auto">
       <!-- Brand / Identity -->
-      <a href="#top" data-scroll-to="0" class="flex items-center gap-2.5 group shrink-0">
-        <span class="w-8 h-8 rounded-xl bg-terracotta text-cream font-display font-bold text-sm flex items-center justify-center shadow-sm group-hover:bg-terracottaDark transition-colors">
+      <a href="#section-home" data-scroll-target="section-home" class="flex items-center gap-2.5 group shrink-0">
+        <span class="w-8 h-8 rounded-xl bg-terracotta text-cream font-display font-bold text-sm flex items-center justify-center border-2 border-ink shadow-[0_2px_0_0_#1E1915] group-hover:bg-terracottaDark transition-colors">
           MH
         </span>
         <div class="leading-tight">
           <span class="block font-display font-bold text-xs sm:text-sm text-ink" id="nav-name">Muhammad Hammad</span>
-          <span class="hidden sm:block font-mono text-[11px] text-muted" id="nav-location">Multan, Pakistan</span>
+          <span class="hidden sm:block font-mono text-[11px] text-muted" id="nav-location">Full-Stack Developer · Multan</span>
         </div>
       </a>
 
-      <!-- Plain Navigation Links -->
+      <!-- Plain Navigation Buttons -->
       <nav aria-label="Primary Navigation" class="flex items-center gap-1 sm:gap-1.5">
-        <button type="button" data-scroll-to="0" data-nav="home" class="nav-link active px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+        <button type="button" data-scroll-target="section-home" data-nav="home" class="nav-link active px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold">
           Home
         </button>
-        <button type="button" data-scroll-to="0.25" data-nav="about" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+        <button type="button" data-scroll-target="section-about" data-nav="about" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold">
           About
         </button>
-        <button type="button" data-scroll-to="0.45" data-nav="skills" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+        <button type="button" data-scroll-target="section-skills" data-nav="skills" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold">
           Skills
         </button>
-        <button type="button" data-scroll-to="0.65" data-nav="projects" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+        <button type="button" data-scroll-target="section-projects" data-nav="projects" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold">
           Projects
         </button>
-        <button type="button" data-scroll-to="0.92" data-nav="contact" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold">
+        <button type="button" data-scroll-target="section-contact" data-nav="contact" class="nav-link px-2.5 sm:px-3 py-1 rounded-lg text-xs font-bold">
           Contact
         </button>
       </nav>
     </div>
 
     <!-- Thin Terracotta Progress Bar -->
-    <div class="max-w-6xl mx-auto mt-1 px-2">
-      <div class="w-full h-1 bg-paper/80 rounded-full overflow-hidden">
+    <div class="max-w-6xl mx-auto mt-1.5 px-2">
+      <div class="w-full h-1.5 bg-paper/90 rounded-full overflow-hidden border border-ink/20">
         <div id="top-scroll-bar" class="h-full bg-terracotta transition-none" style="width: 0%"></div>
       </div>
     </div>
   </header>
 
   <!-- ==========================================================================
-       3. PINNED SCROLLYTELLING STAGE
+       4. SCROLLYTELLING CONTENT SECTIONS (NATURAL VERTICAL FLOW)
        ========================================================================== -->
-  <main id="top">
-    <div id="scrolly-stage">
-      <div id="pinned-viewport" class="paper-grain">
-        <!-- Full-screen Scroll-Driven Canvas -->
-        <canvas id="scene-canvas" aria-label="Warm sunlit developer workspace illustration"></canvas>
+  <main id="scrolly-content">
 
-        <!-- ====================================================================
-             HOME (0%): HERO OVERLAY
-             ==================================================================== -->
-        <section id="section-hero" class="scroll-section">
-          <div class="interactive-panel max-w-xl w-full text-center sm:text-left sm:ml-6 md:ml-12 lg:ml-20 mr-auto">
-            <div class="paper-card rounded-3xl p-5 sm:p-8">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-peach/70 border border-terracotta/40 font-mono text-[11px] font-semibold text-terracottaDark mb-3">
-                <span class="w-2 h-2 rounded-full bg-terracotta"></span>
-                <span id="hero-sub">Muhammad Hammad · Multan, Pakistan</span>
-              </div>
-
-              <h1 id="hero-headline" class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight leading-[1.1] mb-3">
-                I build software that does useful things.
-              </h1>
-
-              <p id="hero-tagline" class="text-xs sm:text-base text-charcoal leading-relaxed mb-5"></p>
-
-              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
-                <button type="button" data-scroll-to="0.65" class="btn-terracotta px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
-                  <span>View Projects</span>
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <polyline points="19 12 12 19 5 12"></polyline>
-                  </svg>
-                </button>
-                <a id="hero-github-btn" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-cream px-4 py-2.5 rounded-xl font-mono text-xs font-semibold inline-flex items-center gap-2">
-                  <svg class="w-4 h-4 text-ink" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
-                  </svg>
-                  <span>GitHub</span>
-                </a>
-              </div>
-
-              <!-- Subtle Hero Footer Scroll Cue -->
-              <div class="mt-5 pt-3.5 border-t border-borderWarm flex items-center justify-center sm:justify-start">
-                <button type="button" data-scroll-to="0.25" class="inline-flex items-center gap-1.5 text-xs font-medium text-muted hover:text-terracotta transition-colors">
-                  <span>Scroll</span>
-                  <svg class="w-3.5 h-3.5 text-terracotta animate-scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                    <path d="M12 5v14"></path>
-                    <path d="m19 12-7 7-7-7"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+    <!-- ========================================================================
+         SECTION 0: HOME / HERO (0% SCROLL)
+         ======================================================================== -->
+    <section id="section-home" data-section-key="home" class="scroll-section">
+      <div class="max-w-6xl w-full mx-auto flex items-center">
+        <div class="reveal-card paper-card rounded-3xl p-6 sm:p-9 max-w-xl w-full">
+          <!-- Developer Role Pill -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-peach/80 border-2 border-ink font-mono text-[11px] font-bold text-ink mb-4 shadow-[0_2px_0_0_#1E1915]">
+            <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+            <span id="hero-sub">Full-Stack Developer · Multan, Pakistan</span>
           </div>
-        </section>
 
-        <!-- ====================================================================
-             ABOUT (25%): BACKGROUND, EDUCATION, INTERNSHIP & CERTIFICATIONS
-             ==================================================================== -->
-        <section id="section-about" class="scroll-section">
-          <div class="interactive-panel max-w-4xl w-full mx-auto">
-            <div class="paper-card rounded-3xl p-4 sm:p-7">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-                <span class="px-3 py-0.5 rounded-full bg-mustard/30 border border-mustard font-mono text-[11px] font-semibold text-ink">
-                  01 · About
-                </span>
-                <span class="font-mono text-[11px] text-muted">Air University Multan Campus</span>
-              </div>
+          <h1 id="hero-headline" class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight leading-[1.08] mb-3.5">
+            I build software that does useful things.
+          </h1>
 
-              <h2 id="about-headline" class="font-display text-xl sm:text-3xl font-bold text-ink leading-tight mb-2">
-                BSCS student at Air University Multan. Freelance web developer.
-              </h2>
+          <p id="hero-tagline" class="text-sm sm:text-base text-charcoal leading-relaxed mb-6"></p>
 
-              <p id="about-summary" class="text-xs sm:text-sm text-charcoal leading-relaxed mb-4"></p>
+          <!-- Redesigned Tactile Paper-Craft CTAs -->
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" data-scroll-target="section-projects" class="btn-craft-primary px-5 py-3 rounded-xl text-xs sm:text-sm">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+              <span>Explore Selected Work</span>
+            </button>
 
-              <!-- Compact Education, Internship & Certifications Grid -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <!-- Education Card -->
-                <div class="paper-subcard rounded-2xl p-3.5">
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="w-2 h-2 rounded-full bg-terracotta"></span>
-                    <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Education</h3>
-                  </div>
-                  <ul id="about-education-list" class="space-y-2 text-xs text-charcoal"></ul>
-                </div>
+            <button type="button" data-scroll-target="section-contact" class="btn-craft-secondary px-4 sm:px-5 py-3 rounded-xl text-xs sm:text-sm">
+              <svg class="w-4 h-4 shrink-0 text-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>Start a Project</span>
+            </button>
 
-                <!-- Internship & Certifications Card -->
-                <div class="paper-subcard rounded-2xl p-3.5 flex flex-col justify-between gap-3">
-                  <div>
-                    <div class="flex items-center gap-2 mb-1.5">
-                      <span class="w-2 h-2 rounded-full bg-sage"></span>
-                      <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Internship</h3>
-                    </div>
-                    <div id="about-internship-box"></div>
-                  </div>
-
-                  <div>
-                    <div class="flex items-center gap-2 mb-1.5">
-                      <span class="w-2 h-2 rounded-full bg-mustard"></span>
-                      <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Certifications</h3>
-                    </div>
-                    <div id="about-certs-list" class="flex flex-wrap gap-1"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <a id="hero-github-btn" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-craft-mini px-3.5 py-2.5 rounded-xl font-mono text-xs">
+              <svg class="w-4 h-4 text-ink shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
           </div>
-        </section>
 
-        <!-- ====================================================================
-             SKILLS (45%): 5 SKILL GROUPS FROM CV
-             ==================================================================== -->
-        <section id="section-skills" class="scroll-section">
-          <div class="interactive-panel max-w-5xl w-full mx-auto">
-            <div class="paper-card rounded-3xl p-4 sm:p-7">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <span class="px-3 py-0.5 rounded-full bg-sage/25 border border-sage font-mono text-[11px] font-semibold text-ink">
-                  02 · Skills
-                </span>
-                <span class="font-mono text-[11px] text-muted">Full-Stack · Desktop · Databases &amp; Tools</span>
-              </div>
-
-              <h2 class="font-display text-xl sm:text-3xl font-bold text-ink mb-4">
-                Technical toolkit across the stack.
-              </h2>
-
-              <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
-                <!-- Populated dynamically from PORTFOLIO_CONFIG.skillGroups -->
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ====================================================================
-             PROJECTS (65%): 5 FEATURED PROJECTS FROM CV
-             ==================================================================== -->
-        <section id="section-projects" class="scroll-section">
-          <div class="interactive-panel max-w-6xl w-full mx-auto">
-            <div class="paper-card rounded-3xl p-4 sm:p-6">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                <span class="px-3 py-0.5 rounded-full bg-peach border border-terracotta/50 font-mono text-[11px] font-semibold text-terracottaDark">
-                  03 · Projects
-                </span>
-                <a id="projects-github-all" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] font-semibold text-terracotta hover:underline inline-flex items-center gap-1">
-                  <span>All repositories on GitHub</span>
-                  <span>→</span>
-                </a>
-              </div>
-
-              <h2 class="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-ink mb-3">
-                Selected software projects.
-              </h2>
-
-              <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
-                <!-- Populated dynamically from PORTFOLIO_CONFIG.projects -->
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ====================================================================
-             CONTACT (90%): CALL TO ACTION
-             ==================================================================== -->
-        <section id="section-contact" class="scroll-section">
-          <div class="interactive-panel max-w-2xl w-full mx-auto text-center">
-            <div class="paper-card rounded-3xl p-6 sm:p-10">
-              <span class="inline-block px-3.5 py-0.5 rounded-full bg-mustard/35 border border-mustard font-mono text-[11px] font-semibold text-ink mb-3">
-                04 · Contact
+          <!-- Subtle Hero Footer Scroll Cue -->
+          <div class="mt-6 pt-4 border-t border-borderWarm flex items-center justify-between">
+            <button type="button" data-scroll-target="section-about" class="inline-flex items-center gap-2 text-xs font-bold text-charcoal hover:text-terracotta transition-colors">
+              <span>Scroll</span>
+              <span class="w-6 h-6 rounded-lg bg-paper border border-ink/40 flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-terracotta animate-scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 5v14"></path>
+                  <path d="m19 12-7 7-7-7"></path>
+                </svg>
               </span>
+            </button>
+            <span class="font-mono text-[11px] text-muted">Full-Stack · SaaS · AI &amp; Desktop</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-              <h2 id="contact-headline" class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-3">
-                Let's build something together.
-              </h2>
+    <!-- ========================================================================
+         SECTION 1: ABOUT (25% SCROLL)
+         ======================================================================== -->
+    <section id="section-about" data-section-key="about" class="scroll-section">
+      <div class="max-w-4xl w-full mx-auto">
+        <div class="reveal-card paper-card rounded-3xl p-5 sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="px-3.5 py-1 rounded-full bg-mustard/40 border-2 border-ink font-mono text-[11px] font-bold text-ink shadow-[0_2px_0_0_#1E1915]">
+              01 · About
+            </span>
+            <span class="font-mono text-xs font-semibold text-charcoal">Full-Stack Software Engineer</span>
+          </div>
 
-              <p id="contact-subtext" class="text-xs sm:text-base text-charcoal max-w-lg mx-auto mb-6"></p>
+          <h2 id="about-headline" class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-ink leading-tight mb-3">
+            Full-Stack Developer crafting scalable web applications &amp; intelligent systems.
+          </h2>
 
-              <!-- Primary Action Buttons (Email & GitHub) -->
-              <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
-                <a id="contact-email-link" href="mailto:hammadmazhar512@gmail.com" class="btn-terracotta px-5 py-3 rounded-2xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                  </svg>
-                  <span id="contact-email-text">hammadmazhar512@gmail.com</span>
-                </a>
+          <p id="about-summary" class="text-xs sm:text-sm text-charcoal leading-relaxed mb-5"></p>
 
-                <a id="contact-github-link" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-cream px-5 py-3 rounded-2xl font-semibold text-xs sm:text-sm inline-flex items-center gap-2">
-                  <svg class="w-4 h-4 text-ink" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
-                  </svg>
-                  <span id="contact-github-text">github.com/Hammadmazhar61245</span>
-                </a>
+          <!-- Experience, Academic Background & Certifications Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            <!-- Experience & Certifications Card -->
+            <div class="paper-subcard rounded-2xl p-4 flex flex-col justify-between gap-3.5">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-terracotta border border-ink"></span>
+                  <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Professional Experience</h3>
+                </div>
+                <div id="about-internship-box"></div>
               </div>
 
-              <!-- Location & Spoken Languages Footer -->
-              <div class="pt-4 border-t border-borderWarm flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-mono text-xs text-charcoal">
-                <span id="contact-location-text">Multan, Pakistan</span>
-                <span>·</span>
-                <span id="contact-languages-text">English (Professional) · Urdu (Native)</span>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-mustard border border-ink"></span>
+                  <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Certifications</h3>
+                </div>
+                <div id="about-certs-list" class="flex flex-wrap gap-1.5"></div>
               </div>
             </div>
+
+            <!-- Academic Foundation Card -->
+            <div class="paper-subcard rounded-2xl p-4">
+              <div class="flex items-center gap-2 mb-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-sage border border-ink"></span>
+                <h3 class="font-mono text-[11px] uppercase tracking-wider font-bold text-ink">Academic Foundation</h3>
+              </div>
+              <ul id="about-education-list" class="space-y-2.5 text-xs text-charcoal"></ul>
+            </div>
           </div>
-        </section>
+
+          <!-- Action Row -->
+          <div class="mt-5 pt-4 border-t border-borderWarm flex flex-wrap items-center justify-between gap-3">
+            <span class="font-mono text-xs text-muted">Available for full-stack contracts &amp; engineering roles</span>
+            <div class="flex items-center gap-2.5">
+              <button type="button" data-scroll-target="section-skills" class="btn-craft-mini px-3.5 py-2 rounded-xl text-xs">
+                <span>Explore Tech Stack</span>
+                <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 2: SKILLS (45% SCROLL)
+         ======================================================================== -->
+    <section id="section-skills" data-section-key="skills" class="scroll-section">
+      <div class="max-w-5xl w-full mx-auto">
+        <div class="reveal-card paper-card rounded-3xl p-5 sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+            <span class="px-3.5 py-1 rounded-full bg-sage/35 border-2 border-ink font-mono text-[11px] font-bold text-ink shadow-[0_2px_0_0_#1E1915]">
+              02 · Skills
+            </span>
+            <span class="font-mono text-xs text-muted">Languages · Frontend · Backend · Frameworks · Databases</span>
+          </div>
+
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink mb-4">
+            Production toolkit across the stack.
+          </h2>
+
+          <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5">
+            <!-- Populated dynamically from PORTFOLIO_CONFIG.skillGroups -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: PROJECTS (65% SCROLL)
+         ======================================================================== -->
+    <section id="section-projects" data-section-key="projects" class="scroll-section">
+      <div class="max-w-6xl w-full mx-auto">
+        <div class="reveal-card paper-card rounded-3xl p-5 sm:p-7">
+          <div class="flex flex-wrap items-center justify-between gap-2.5 mb-2">
+            <span class="px-3.5 py-1 rounded-full bg-peach border-2 border-ink font-mono text-[11px] font-bold text-ink shadow-[0_2px_0_0_#1E1915]">
+              03 · Projects
+            </span>
+            <a id="projects-github-all" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-craft-mini px-3.5 py-1.5 rounded-xl font-mono text-xs">
+              <span>All Repositories on GitHub</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M7 17L17 7"></path>
+                <path d="M7 7h10v10"></path>
+              </svg>
+            </a>
+          </div>
+
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink mb-4">
+            Selected software engineering projects.
+          </h2>
+
+          <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5">
+            <!-- Populated dynamically from PORTFOLIO_CONFIG.projects -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: CONTACT (90% SCROLL)
+         ======================================================================== -->
+    <section id="section-contact" data-section-key="contact" class="scroll-section">
+      <div class="max-w-2xl w-full mx-auto text-center">
+        <div class="reveal-card paper-card rounded-3xl p-6 sm:p-10">
+          <span class="inline-block px-3.5 py-1 rounded-full bg-mustard/45 border-2 border-ink font-mono text-[11px] font-bold text-ink shadow-[0_2px_0_0_#1E1915] mb-3.5">
+            04 · Contact
+          </span>
+
+          <h2 id="contact-headline" class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-ink leading-tight mb-3">
+            Let's build something together.
+          </h2>
+
+          <p id="contact-subtext" class="text-xs sm:text-base text-charcoal max-w-lg mx-auto mb-6"></p>
+
+          <!-- Tactile Paper-Craft Contact Buttons (Email & GitHub) -->
+          <div class="flex flex-wrap items-center justify-center gap-3.5 mb-7">
+            <a id="contact-email-link" href="mailto:hammadmazhar512@gmail.com" class="btn-craft-primary px-5 py-3.5 rounded-2xl text-xs sm:text-sm">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span id="contact-email-text">hammadmazhar512@gmail.com</span>
+            </a>
+
+            <a id="contact-github-link" href="https://github.com/Hammadmazhar61245" target="_blank" rel="noopener noreferrer" class="btn-craft-secondary px-5 py-3.5 rounded-2xl text-xs sm:text-sm">
+              <svg class="w-4 h-4 text-ink shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+              </svg>
+              <span id="contact-github-text">github.com/Hammadmazhar61245</span>
+            </a>
+          </div>
+
+          <!-- Location & Spoken Languages Footer -->
+          <div class="pt-4 border-t border-borderWarm flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-charcoal">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-4 mx-auto sm:mx-0">
+              <span id="contact-location-text">Multan, Pakistan</span>
+              <span>·</span>
+              <span id="contact-languages-text">English (Professional) · Urdu (Native)</span>
+            </div>
+
+            <button type="button" data-scroll-target="section-home" class="btn-craft-mini px-3 py-1.5 rounded-lg text-[11px] mx-auto sm:mx-0">
+              <span>Back to Top ↑</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ==========================================================================
-       4. SINGLE CONFIGURATION OBJECT + SCROLLYTELLING & CANVAS ENGINE
+       5. SINGLE CONFIGURATION OBJECT + SCROLLYTELLING & CANVAS ENGINE
        ========================================================================== -->
   <script>
     /**
@@ -547,6 +642,7 @@
     const PORTFOLIO_CONFIG = {
       personal: {
         name: "Muhammad Hammad",
+        role: "Full-Stack Developer",
         location: "Multan, Pakistan",
         email: "hammadmazhar512@gmail.com",
         github: "https://github.com/Hammadmazhar61245",
@@ -561,16 +657,16 @@
 
       hero: {
         headline: "I build software that does useful things.",
-        subheadline: "Muhammad Hammad · Multan, Pakistan",
-        tagline: "Computer Science student and freelance full-stack developer building multi-tenant SaaS platforms, ML-powered trading systems, and desktop applications."
+        subheadline: "Full-Stack Developer · Multan, Pakistan",
+        tagline: "Full-Stack Web & Software Developer architecting multi-tenant SaaS platforms, ML-powered trading systems, real-time AI assistants, and enterprise desktop applications."
       },
 
       about: {
-        headline: "BSCS student at Air University Multan. Freelance web developer.",
-        summary: "Computer Science student at Air University Multan Campus with hands-on experience in full-stack web development, database design, and desktop application development. Comfortable working across the stack, from SaaS platforms to ML-powered bots. Quick to pick up new tools and focused on building useful software.",
+        headline: "Full-Stack Developer crafting scalable web applications & intelligent systems.",
+        summary: "Full-stack developer with hands-on experience delivering production web applications, relational & NoSQL database architectures, and Windows desktop software. Comfortable engineering across the entire stack—from React & Node.js SaaS platforms to Python ML automation bots and C# .NET systems.",
         education: [
           {
-            degree: "BS in Computer Science",
+            degree: "Bachelor of Science in Computer Science",
             institution: "Air University Multan Campus",
             period: "2024 – Present",
             badge: "CGPA: 3.2/4.0"
@@ -589,10 +685,10 @@
           }
         ],
         internship: {
-          role: "Python Programming Intern",
+          role: "Python Software Developer (Intern)",
           company: "SyntecXHub",
-          period: "6 July 2026 – 17 August 2026",
-          description: "Completed the Python Programming internship program with active participation."
+          period: "July 2026 – August 2026",
+          description: "Engineered Python automation scripts and modular backend utilities within an agile software engineering workflow."
         },
         certifications: [
           "Web Development · Coursera",
@@ -666,7 +762,7 @@
 
       contact: {
         headline: "Let's build something together.",
-        subtext: "Available for freelance web and desktop projects, software engineering internships, and collaborative builds."
+        subtext: "Available for full-stack web development, custom SaaS platforms, desktop software, and engineering collaborations."
       }
     };
 
@@ -681,7 +777,7 @@
       // Header & Preloader Identity
       document.getElementById("loader-name").textContent = cfg.personal.name;
       document.getElementById("nav-name").textContent = cfg.personal.name;
-      document.getElementById("nav-location").textContent = cfg.personal.location;
+      document.getElementById("nav-location").textContent = `${cfg.personal.role} · Multan`;
 
       // Home (0%)
       document.getElementById("hero-headline").textContent = cfg.hero.headline;
@@ -695,10 +791,10 @@
 
       const eduList = document.getElementById("about-education-list");
       eduList.innerHTML = cfg.about.education.map(edu => `
-        <li class="border-b border-borderWarm/70 pb-1.5 last:border-none last:pb-0">
+        <li class="border-b border-borderWarm pb-2 last:border-none last:pb-0">
           <div class="flex items-center justify-between gap-2">
-            <span class="font-semibold text-ink">${edu.degree}</span>
-            <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-cream border border-borderWarm text-terracotta font-semibold shrink-0">${edu.badge}</span>
+            <span class="font-bold text-ink">${edu.degree}</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded-md bg-cream border border-ink/40 text-terracotta font-bold shrink-0">${edu.badge}</span>
           </div>
           <div class="text-[11px] text-muted flex justify-between mt-0.5">
             <span>${edu.institution}</span>
@@ -709,19 +805,19 @@
 
       const internBox = document.getElementById("about-internship-box");
       internBox.innerHTML = `
-        <div class="bg-cream/90 rounded-xl p-2.5 border border-borderWarm">
+        <div class="bg-cream rounded-xl p-3 border border-ink/30">
           <div class="flex flex-wrap items-center justify-between gap-1">
-            <span class="font-semibold text-xs text-ink">${cfg.about.internship.role}</span>
-            <span class="font-mono text-[10px] text-terracotta font-semibold">${cfg.about.internship.company}</span>
+            <span class="font-bold text-xs text-ink">${cfg.about.internship.role}</span>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-peach/70 text-ink font-bold border border-ink/30">${cfg.about.internship.company}</span>
           </div>
-          <span class="block font-mono text-[10px] text-muted mb-1">${cfg.about.internship.period}</span>
+          <span class="block font-mono text-[10px] text-muted mt-0.5 mb-1.5">${cfg.about.internship.period}</span>
           <p class="text-[11px] text-charcoal leading-snug">${cfg.about.internship.description}</p>
         </div>
       `;
 
       const certsList = document.getElementById("about-certs-list");
       certsList.innerHTML = cfg.about.certifications.map(cert => `
-        <span class="px-2 py-0.5 rounded-md bg-cream border border-borderWarm font-mono text-[10px] text-charcoal">
+        <span class="px-2.5 py-1 rounded-lg bg-cream border border-ink/30 font-mono text-[10px] font-semibold text-ink">
           ${cert}
         </span>
       `).join("");
@@ -729,9 +825,9 @@
       // Skills (45%)
       const skillsGrid = document.getElementById("skills-grid");
       const badgeStyles = {
-        terracotta: "bg-peach/65 border-terracotta/50 text-ink",
-        mustard: "bg-mustard/30 border-mustard text-ink",
-        sage: "bg-sage/25 border-sage text-ink"
+        terracotta: "bg-peach/70 border-ink/40 text-ink",
+        mustard: "bg-mustard/35 border-ink/40 text-ink",
+        sage: "bg-sage/30 border-ink/40 text-ink"
       };
       const dotStyles = {
         terracotta: "bg-terracotta",
@@ -740,17 +836,18 @@
       };
 
       skillsGrid.innerHTML = cfg.skillGroups.map((group, idx) => `
-        <div class="paper-subcard rounded-2xl p-3.5 flex flex-col justify-between ${idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}">
+        <div class="paper-subcard rounded-2xl p-4 flex flex-col justify-between ${idx === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}">
           <div>
-            <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center justify-between mb-2.5">
               <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full ${dotStyles[group.accent] || 'bg-terracotta'}"></span>
-                <h3 class="font-display font-bold text-sm sm:text-base text-ink">${group.category}</h3>
+                <span class="w-2.5 h-2.5 rounded-full border border-ink ${dotStyles[group.accent] || 'bg-terracotta'}"></span>
+                <h3 class="font-display font-bold text-base text-ink">${group.category}</h3>
               </div>
+              <span class="font-mono text-[10px] text-muted">${group.items.length} tools</span>
             </div>
             <div class="flex flex-wrap gap-1.5">
               ${group.items.map(skill => `
-                <span class="px-2.5 py-0.5 rounded-lg border font-mono text-[11px] font-medium ${badgeStyles[group.accent] || badgeStyles.terracotta}">
+                <span class="px-2.5 py-1 rounded-lg border font-mono text-[11px] font-semibold ${badgeStyles[group.accent] || badgeStyles.terracotta}">
                   ${skill}
                 </span>
               `).join("")}
@@ -763,26 +860,26 @@
       document.getElementById("projects-github-all").href = cfg.personal.github;
       const projectsGrid = document.getElementById("projects-grid");
       projectsGrid.innerHTML = cfg.projects.map((proj, index) => `
-        <article class="paper-subcard bg-cream/95 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between">
+        <article class="paper-subcard bg-cream/95 rounded-2xl p-4 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between gap-2 mb-1.5">
-              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-paper text-terracotta">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded-md bg-peach border border-ink/40 text-ink">
                 0${index + 1}
               </span>
-              <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="font-mono text-[11px] text-charcoal hover:text-terracotta inline-flex items-center gap-1 font-medium">
-                <span>GitHub</span>
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn-craft-mini px-2.5 py-1 rounded-lg font-mono text-[11px]">
+                <span>View Source</span>
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
                   <path d="M7 17L17 7"></path>
                   <path d="M7 7h10v10"></path>
                 </svg>
               </a>
             </div>
-            <h3 class="font-display font-bold text-sm sm:text-base text-ink mb-1">${proj.title}</h3>
-            <p class="text-[11px] sm:text-xs text-charcoal leading-snug mb-2.5">${proj.description}</p>
+            <h3 class="font-display font-bold text-base text-ink mb-1.5">${proj.title}</h3>
+            <p class="text-xs text-charcoal leading-relaxed mb-3">${proj.description}</p>
           </div>
-          <div class="flex flex-wrap gap-1 pt-2 border-t border-borderWarm/70">
+          <div class="flex flex-wrap gap-1.5 pt-2.5 border-t border-borderWarm">
             ${proj.stack.map(tech => `
-              <span class="px-1.5 py-0.5 rounded bg-paper font-mono text-[10px] text-charcoal font-medium">
+              <span class="px-2 py-0.5 rounded-md bg-paper border border-ink/20 font-mono text-[10px] text-ink font-semibold">
                 ${tech}
               </span>
             `).join("")}
@@ -813,13 +910,13 @@
 
     const TOTAL_FRAMES = PORTFOLIO_CONFIG.sequence.frameCount;
     const loadedImages = new Array(TOTAL_FRAMES).fill(null);
-    const playhead = { frame: 0 };
+    let currentFrameIndex = 0;
 
     function resizeCanvas() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
-      renderFrame(Math.round(playhead.frame));
+      renderFrame(currentFrameIndex);
     }
 
     window.addEventListener("resize", resizeCanvas);
@@ -841,6 +938,33 @@
     }
 
     /**
+     * Rounded rectangle helper with safe fallback for all browsers
+     */
+    function fillAndStrokeRoundRect(ctx, x, y, w, h, r, fill, stroke, lineWidth) {
+      const radius = Math.max(0, Math.min(r, Math.min(w, h) * 0.5));
+      ctx.beginPath();
+      if (typeof ctx.roundRect === "function") {
+        ctx.roundRect(x, y, w, h, radius);
+      } else {
+        ctx.moveTo(x + radius, y);
+        ctx.arcTo(x + w, y, x + w, y + h, radius);
+        ctx.arcTo(x + w, y + h, x, y + h, radius);
+        ctx.arcTo(x, y + h, x, y, radius);
+        ctx.arcTo(x, y, x + w, y, radius);
+        ctx.closePath();
+      }
+      if (fill) {
+        ctx.fillStyle = fill;
+        ctx.fill();
+      }
+      if (stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = lineWidth || 1;
+        ctx.stroke();
+      }
+    }
+
+    /**
      * Procedural 3D Paper-Craft Fly-Through Renderer
      * Silently used if `frames/frame_0001.webp` is not present.
      */
@@ -859,13 +983,13 @@
       const cy = ch * 0.52;
       const minDim = Math.min(cw, ch);
 
-      // End wall fade-out (from 78% to 100%, camera settles on clean cream wall)
-      const endWallFade = progress > 0.78 ? Math.min(1, (progress - 0.78) / 0.18) : 0;
+      // End wall fade-out (from 80% to 100%, camera settles on clean cream wall)
+      const endWallFade = progress > 0.80 ? Math.min(1, (progress - 0.80) / 0.18) : 0;
 
       ctx.save();
 
       // Diagonal Warm Sunlight Beams
-      const sunAlpha = (1 - endWallFade * 0.8) * 0.2;
+      const sunAlpha = (1 - endWallFade * 0.8) * 0.22;
       ctx.fillStyle = `rgba(242, 177, 52, ${sunAlpha})`;
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -876,7 +1000,7 @@
       ctx.fill();
 
       // Subtle baseboard line on the cream wall
-      ctx.strokeStyle = "rgba(213, 199, 174, 0.55)";
+      ctx.strokeStyle = "rgba(213, 199, 174, 0.6)";
       ctx.lineWidth = Math.max(1, cw * 0.0012);
       ctx.beginPath();
       ctx.moveTo(0, ch * 0.88);
@@ -959,28 +1083,44 @@
           const lw = 22 * s;
           const lh = 14 * s;
 
-          ctx.fillStyle = "rgba(30, 26, 23, 0.10)";
-          ctx.beginPath();
-          ctx.roundRect(p.x - lw * 0.65, p.y + lh * 0.45, lw * 1.3, lh * 0.25, 4);
-          ctx.fill();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - lw * 0.65,
+            p.y + lh * 0.45,
+            lw * 1.3,
+            lh * 0.25,
+            4,
+            "rgba(30, 25, 21, 0.10)",
+            null
+          );
 
-          ctx.fillStyle = "#2E2823";
-          ctx.strokeStyle = "#E4572E";
-          ctx.lineWidth = Math.max(1.5, 0.25 * s);
-          ctx.beginPath();
-          ctx.roundRect(p.x - lw * 0.5, p.y - lh * 0.5, lw, lh, Math.max(3, 0.8 * s));
-          ctx.fill();
-          ctx.stroke();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - lw * 0.5,
+            p.y - lh * 0.5,
+            lw,
+            lh,
+            Math.max(3, 0.8 * s),
+            "#2E2823",
+            "#E4572E",
+            Math.max(1.5, 0.25 * s)
+          );
 
-          // Warm orange, peach & cream screen glow
           const scrGrad = ctx.createLinearGradient(p.x - lw * 0.45, p.y - lh * 0.42, p.x + lw * 0.45, p.y + lh * 0.38);
           scrGrad.addColorStop(0, "#FAF6EE");
           scrGrad.addColorStop(0.55, "#FAD4C0");
           scrGrad.addColorStop(1, "#F2B134");
-          ctx.fillStyle = scrGrad;
-          ctx.beginPath();
-          ctx.roundRect(p.x - lw * 0.44, p.y - lh * 0.42, lw * 0.88, lh * 0.78, Math.max(2, 0.4 * s));
-          ctx.fill();
+
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - lw * 0.44,
+            p.y - lh * 0.42,
+            lw * 0.88,
+            lh * 0.78,
+            Math.max(2, 0.4 * s),
+            scrGrad,
+            null
+          );
 
           ctx.fillStyle = "#E4572E";
           ctx.fillRect(p.x - lw * 0.36, p.y - lh * 0.28, lw * 0.32, lh * 0.07);
@@ -988,7 +1128,7 @@
           ctx.fillRect(p.x - lw * 0.36, p.y - lh * 0.14, lw * 0.52, lh * 0.06);
           ctx.fillStyle = "#F2B134";
           ctx.fillRect(p.x - lw * 0.28, p.y - lh * 0.02, lw * 0.42, lh * 0.06);
-          ctx.fillStyle = "#1E1A17";
+          ctx.fillStyle = "#1E1915";
           ctx.fillRect(p.x - lw * 0.36, p.y + lh * 0.10, lw * 0.26, lh * 0.06);
 
           ctx.fillStyle = "#D9CEBE";
@@ -1009,10 +1149,16 @@
           ctx.arc(p.x + cwCup * 0.5, p.y, cwCup * 0.28, -Math.PI * 0.5, Math.PI * 0.5);
           ctx.stroke();
 
-          ctx.fillStyle = "#E4572E";
-          ctx.beginPath();
-          ctx.roundRect(p.x - cwCup * 0.5, p.y - chCup * 0.5, cwCup, chCup, Math.max(2, 0.6 * s));
-          ctx.fill();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - cwCup * 0.5,
+            p.y - chCup * 0.5,
+            cwCup,
+            chCup,
+            Math.max(2, 0.6 * s),
+            "#E4572E",
+            null
+          );
 
           ctx.fillStyle = "#FAF6EE";
           ctx.fillRect(p.x - cwCup * 0.52, p.y - chCup * 0.5, cwCup * 1.04, chCup * 0.16);
@@ -1050,13 +1196,17 @@
           ctx.save();
           ctx.translate(p.x, p.y);
           ctx.rotate(-0.18);
-          ctx.fillStyle = "#FAF6EE";
-          ctx.strokeStyle = "#E4572E";
-          ctx.lineWidth = Math.max(1.5, 0.2 * s);
-          ctx.beginPath();
-          ctx.roundRect(-nw * 0.5, -nh * 0.5, nw, nh, 4);
-          ctx.fill();
-          ctx.stroke();
+          fillAndStrokeRoundRect(
+            ctx,
+            -nw * 0.5,
+            -nh * 0.5,
+            nw,
+            nh,
+            4,
+            "#FAF6EE",
+            "#E4572E",
+            Math.max(1.5, 0.2 * s)
+          );
 
           ctx.fillStyle = "#F2B134";
           ctx.fillRect(-nw * 0.35, -nh * 0.22, nw * 0.7, nh * 0.08);
@@ -1066,18 +1216,28 @@
           const cwCard = obj.w * s;
           const chCard = obj.h * s;
 
-          ctx.fillStyle = "rgba(30, 26, 23, 0.07)";
-          ctx.beginPath();
-          ctx.roundRect(p.x - cwCard * 0.5 + 4, p.y - chCard * 0.5 + 6, cwCard, chCard, Math.max(3, 0.6 * s));
-          ctx.fill();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - cwCard * 0.5 + 4,
+            p.y - chCard * 0.5 + 6,
+            cwCard,
+            chCard,
+            Math.max(3, 0.6 * s),
+            "rgba(30, 25, 21, 0.08)",
+            null
+          );
 
-          ctx.fillStyle = obj.color;
-          ctx.strokeStyle = obj.accent;
-          ctx.lineWidth = Math.max(1.2, 0.18 * s);
-          ctx.beginPath();
-          ctx.roundRect(p.x - cwCard * 0.5, p.y - chCard * 0.5, cwCard, chCard, Math.max(3, 0.6 * s));
-          ctx.fill();
-          ctx.stroke();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - cwCard * 0.5,
+            p.y - chCard * 0.5,
+            cwCard,
+            chCard,
+            Math.max(3, 0.6 * s),
+            obj.color,
+            obj.accent,
+            Math.max(1.2, 0.18 * s)
+          );
 
           ctx.fillStyle = obj.accent;
           ctx.fillRect(p.x - cwCard * 0.38, p.y - chCard * 0.25, cwCard * 0.42, chCard * 0.12);
@@ -1087,10 +1247,16 @@
         } else if (obj.type === "codeStrip") {
           const sw = obj.w * s;
           const sh = obj.h * s;
-          ctx.fillStyle = obj.color;
-          ctx.beginPath();
-          ctx.roundRect(p.x - sw * 0.5, p.y - sh * 0.5, sw, sh, Math.max(3, 0.5 * s));
-          ctx.fill();
+          fillAndStrokeRoundRect(
+            ctx,
+            p.x - sw * 0.5,
+            p.y - sh * 0.5,
+            sw,
+            sh,
+            Math.max(3, 0.5 * s),
+            obj.color,
+            null
+          );
 
           ctx.fillStyle = "#FAF6EE";
           ctx.fillRect(p.x - sw * 0.36, p.y - sh * 0.12, sw * 0.72, sh * 0.24);
@@ -1103,15 +1269,15 @@
     }
 
     function renderFrame(index) {
-      const clampedIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
+      currentFrameIndex = Math.max(0, Math.min(TOTAL_FRAMES - 1, index));
       const cw = canvas.width;
       const ch = canvas.height;
 
-      const img = loadedImages[clampedIndex];
+      const img = loadedImages[currentFrameIndex];
       if (img && img.complete && (img.naturalWidth > 0 || img.width > 0)) {
         drawImageCover(ctx, img, cw, ch);
       } else {
-        drawProceduralPaperWorld(ctx, clampedIndex, cw, ch);
+        drawProceduralPaperWorld(ctx, currentFrameIndex, cw, ch);
       }
     }
 
@@ -1132,16 +1298,19 @@
         if (finished) return;
         finished = true;
         loaderBar.style.width = "100%";
-        renderFrame(0);
+        renderFrame(currentFrameIndex);
 
         setTimeout(() => {
           loaderOverlay.style.opacity = "0";
           loaderOverlay.style.pointerEvents = "none";
           setTimeout(() => {
             loaderOverlay.style.display = "none";
-          }, 500);
-        }, 200);
+          }, 450);
+        }, 150);
       }
+
+      // Safety fallback timeout so preloader never hangs
+      setTimeout(dismissPreloader, 1800);
 
       const probeImg = new Image();
       probeImg.onload = () => {
@@ -1173,15 +1342,8 @@
 
       // If frames/frame_0001.webp is absent, silently fall back to procedural scene
       probeImg.onerror = () => {
-        let progress = 0;
-        const timer = setInterval(() => {
-          progress += 25;
-          loaderBar.style.width = `${Math.min(100, progress)}%`;
-          if (progress >= 100) {
-            clearInterval(timer);
-            dismissPreloader();
-          }
-        }, 50);
+        loaderBar.style.width = "100%";
+        dismissPreloader();
       };
 
       probeImg.src = PORTFOLIO_CONFIG.sequence.framePath(1);
@@ -1189,110 +1351,107 @@
 
     /**
      * ============================================================================
-     * 5. GSAP SCROLLTRIGGER & ACTIVE NAVIGATION STATE
+     * 5. ROCK-SOLID NATURAL SCROLL + CANVAS SCRUBBING + SECTION ANIMATIONS
      * ============================================================================
      */
-    function updateActiveNav(progress) {
-      let activeKey = "home";
-      if (progress >= 0.82) {
-        activeKey = "contact";
-      } else if (progress >= 0.57) {
-        activeKey = "projects";
-      } else if (progress >= 0.37) {
-        activeKey = "skills";
-      } else if (progress >= 0.17) {
-        activeKey = "about";
-      }
-
-      document.querySelectorAll("[data-nav]").forEach((btn) => {
-        if (btn.getAttribute("data-nav") === activeKey) {
-          btn.classList.add("active");
-        } else {
-          btn.classList.remove("active");
-        }
-      });
-    }
-
     function initScrollytelling() {
-      gsap.registerPlugin(ScrollTrigger);
-
-      const stage = document.getElementById("scrolly-stage");
       const topScrollBar = document.getElementById("top-scroll-bar");
+      const navButtons = document.querySelectorAll("[data-nav]");
+      const sections = document.querySelectorAll(".scroll-section");
 
-      // Smooth scroll navigation links
-      document.querySelectorAll("[data-scroll-to]").forEach((btn) => {
+      // Smooth scroll on any button with [data-scroll-target]
+      document.querySelectorAll("[data-scroll-target]").forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
-          const ratio = parseFloat(btn.getAttribute("data-scroll-to") || "0");
-          const maxScroll = stage.offsetHeight - window.innerHeight;
-          window.scrollTo({
-            top: Math.max(0, maxScroll * ratio),
-            behavior: "smooth"
-          });
+          const targetId = btn.getAttribute("data-scroll-target");
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
         });
       });
 
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) {
-        renderFrame(0);
-        return;
+
+      // Smooth lerp loop for canvas frame scrubbing tied to real window scroll
+      let targetFrame = 0;
+      let smoothedFrame = 0;
+
+      function updateScrollProgress() {
+        const docEl = document.documentElement;
+        const maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+        const scrollTop = window.scrollY || docEl.scrollTop || 0;
+        const progress = Math.max(0, Math.min(1, scrollTop / maxScroll));
+
+        if (topScrollBar) {
+          topScrollBar.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+
+        targetFrame = progress * (TOTAL_FRAMES - 1);
+
+        // Determine active section based on viewport center
+        const viewportMid = scrollTop + window.innerHeight * 0.45;
+        let currentKey = "home";
+        sections.forEach((sec) => {
+          if (viewportMid >= sec.offsetTop) {
+            currentKey = sec.getAttribute("data-section-key") || currentKey;
+          }
+        });
+
+        navButtons.forEach((btn) => {
+          if (btn.getAttribute("data-nav") === currentKey) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
       }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: stage,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.35,
-          onUpdate: (self) => {
-            const pct = (self.progress * 100).toFixed(1);
-            if (topScrollBar) topScrollBar.style.width = `${pct}%`;
-            updateActiveNav(self.progress);
+      function tickCanvas() {
+        if (!prefersReducedMotion) {
+          smoothedFrame += (targetFrame - smoothedFrame) * 0.16;
+          const nextFrame = Math.round(smoothedFrame);
+          if (nextFrame !== currentFrameIndex) {
+            renderFrame(nextFrame);
           }
+          requestAnimationFrame(tickCanvas);
         }
-      });
+      }
 
-      // Scrub canvas frames 0 -> 299 across 100 timeline units
-      tl.to(
-        playhead,
-        {
-          frame: TOTAL_FRAMES - 1,
-          duration: 100,
-          ease: "none",
-          onUpdate: () => {
-            renderFrame(Math.round(playhead.frame));
-          }
-        },
-        0
-      );
+      window.addEventListener("scroll", updateScrollProgress, { passive: true });
+      window.addEventListener("resize", updateScrollProgress, { passive: true });
+      updateScrollProgress();
 
-      // Home (0%)
-      const heroSec = document.getElementById("section-hero");
-      gsap.set(heroSec, { autoAlpha: 1, y: 0 });
-      tl.to(heroSec, { autoAlpha: 0, y: -36, duration: 6, ease: "power2.inOut" }, 13);
+      if (!prefersReducedMotion) {
+        requestAnimationFrame(tickCanvas);
+      } else {
+        renderFrame(0);
+      }
 
-      // About (25%)
-      const aboutSec = document.getElementById("section-about");
-      gsap.set(aboutSec, { autoAlpha: 0, y: 40 });
-      tl.to(aboutSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 20);
-      tl.to(aboutSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 34.5);
+      // Optional subtle GSAP ScrollTrigger card reveal that never locks visibility
+      if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && !prefersReducedMotion) {
+        gsap.registerPlugin(ScrollTrigger);
 
-      // Skills (45%)
-      const skillsSec = document.getElementById("section-skills");
-      gsap.set(skillsSec, { autoAlpha: 0, y: 40 });
-      tl.to(skillsSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 40);
-      tl.to(skillsSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 54.5);
-
-      // Projects (65%)
-      const projectsSec = document.getElementById("section-projects");
-      gsap.set(projectsSec, { autoAlpha: 0, y: 40 });
-      tl.to(projectsSec, { autoAlpha: 1, y: 0, duration: 4.5, ease: "power2.out" }, 60);
-      tl.to(projectsSec, { autoAlpha: 0, y: -36, duration: 4.5, ease: "power2.in" }, 79.5);
-
-      // Contact (90%)
-      const contactSec = document.getElementById("section-contact");
-      gsap.set(contactSec, { autoAlpha: 0, y: 40 });
-      tl.to(contactSec, { autoAlpha: 1, y: 0, duration: 5, ease: "power2.out" }, 85.5);
+        document.querySelectorAll(".reveal-card").forEach((card, idx) => {
+          if (idx === 0) return; // Hero card is immediately visible at top
+          gsap.fromTo(
+            card,
+            { y: 36, opacity: 0.15 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+                end: "top 45%",
+                scrub: 0.4
+              }
+            }
+          );
+        });
+      }
     }
 
     /**
